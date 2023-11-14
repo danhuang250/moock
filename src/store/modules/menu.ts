@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { asyncRoutes,staticRouter } from '../../router'
+import { asyncRoutes,staticRoutes } from '../../router'
 
 export const useMenuStore = defineStore({
     id: 'menuState',
@@ -17,7 +17,7 @@ export const useMenuStore = defineStore({
         generateRouter: function ({roles}: {roles:any}){
             let accessedRouters = filterAsyncRoutes({routes: asyncRoutes,roles: roles})
             this.addRouters = accessedRouters
-            this.routers = staticRouter.concat(accessedRouters)
+            this.routers = staticRoutes.concat(accessedRouters)
             return accessedRouters
         },
         // 动态生成访问路由

@@ -2,100 +2,18 @@
   <!--头部组件 start-->
    <TopHeader/>
   <!--头部组件 end-->
-  <!--搜索组件 start-->
-   <Search/>
-  <!--搜索组件 end-->
   <!--中间内容 start-->
    <div class="edu-container">
-    <!--大分类 start-->
-     <div class="list-top">
-       <div class="list-title">全部类别</div>
-       <div class="list-tab">
-         <div class="tab-left">方向：</div>
-         <dl>
-           <dd :class="{on: subjectParentId==0}"><a href="" @click.prevent="toSubjectList(0)">全部</a></dd>
-           <dd :class="{ on: item.id== subjectParentId}"  v-for="item in subject"><a href="" @click.prevent="toSubjectList(item.id,0)">{{ item.name }}</a></dd>
-         </dl>
-       </div>
-
-       <!--分类 start-->
-       <div class="list-tab">
-         <div class="tab-left">分类：</div>
-         <dl>
-           <dd :class="{on: sonSubjectId==0}"><a href="" @click.prevent="toSubjectList(0,null)">全部</a></dd>
-           <dd :class="{ on: item.id== sonSubjectId}" v-for="item in sonSubject"><a href="" @click.prevent="toSubjectList(item.parentId,item.id)">{{ item.name }}</a></dd>
-         </dl>
-       </div>
-       <!--分类 end-->
-
-       <!--难度 start-->
-       <div class="list-tab">
-         <div class="tab-left">难度：</div>
-         <dl>
-           <dd :class="{on: difficulty=='all'}"><a href="" @click.prevent="toDiffList('all')">全部</a></dd>
-           <dd :class="{on: difficulty==0}"><a href="" @click.prevent="toDiffList(0)">入门</a></dd>
-           <dd :class="{on: difficulty==1}"><a href="" @click.prevent="toDiffList(1)">初级</a></dd>
-           <dd :class="{on: difficulty==2}"><a href="" @click.prevent="toDiffList(2)">中级</a></dd>
-           <dd :class="{on: difficulty==3}"><a href="" @click.prevent="toDiffList(3)">高级</a></dd>
-         </dl>
-       </div>
-       <!--难度 end-->
-
-       <!--类型 start-->
-       <div class="list-tab">
-         <div class="tab-left">类型：</div>
-         <dl>
-           <dd :class="{on: courseType=='all'}"><a href="" @click.prevent="toTypeList('all')">全部</a></dd>
-           <dd :class="{on: courseType==0}"><a href="" @click.prevent="toTypeList(0)">新手入门</a></dd>
-           <dd :class="{on: courseType==1}"><a href="" @click.prevent="toTypeList(1)">新上好课</a></dd>
-           <dd :class="{on: courseType==2}"><a href="" @click.prevent="toTypeList(2)">技能提高</a></dd>
-           <dd :class="{on: courseType==3}"><a href="" @click.prevent="toTypeList(3)">实战开发</a></dd>
-         </dl>
-       </div>
-       <!--类型 end-->
-
-
-     </div>
-     <!--大分类 end-->
-
      <!--内容 start-->
-     <div class="list-two-tab">
-       <a href="" :class="{on: courseSort=='all'}" @click.prevent="toSortList('all')">综合</a>
-       <a href="" :class="{on: courseSort==0}" @click.prevent="toSortList(0)">最新</a>
-       <a href="" :class="{on: courseSort==1}" @click.prevent="toSortList(1)">销量</a>
-     </div>
-
      <!--课程 start-->
      <ul class="j-list-box">
        <li v-for="item in courseList">
          <router-link :to="'/edu/details/'+item.id" target="_blank">
-           <div class="j-list-img"><img :src="item.cover"> </div>
+           <div class="j-list-img"><img src="./defaultCourse.jpg"> </div>
            <div class="j-list-son">
              <div class="j-list-title">
                {{item.shortTitle}}
              </div>
-             <div class="j-list-tag">
-               <span>课时：{{item.lessonNum}}</span>
-               <span class="down-num">{{item.viewCount}}人在学</span>
-             </div>
-             <div class="j-list-tag">
-               <span v-if="item.courseType==0">类型：新手入门</span>
-               <span v-else-if="item.courseType==1">类型：新上好课</span>
-               <span v-else-if="item.courseType==2">类型：技能提升</span>
-               <span v-else>类型：实战开发</span>
-
-               <span class="down-num" v-if="item.difficulty==0">难度：入门</span>
-               <span class="down-num" v-else-if="item.difficulty==1">难度：初级</span>
-               <span class="down-num" v-else-if="item.difficulty==2">难度：中级</span>
-               <span class="down-num" v-else>难度：高级</span>
-             </div>
-             <div class="j-list-info">
-               价格：<span>￥{{item.price}}</span>
-               <router-link :to="'/edu/details/'+item.id" target="_blank">
-               了解详情
-               </router-link>
-             </div>
-             <span class="member-free">会员免费</span>
            </div>
          </router-link>
        </li>
@@ -118,27 +36,9 @@ import TopHeader from "@/views/edu/common/header/TopHeader.vue";
 import Search from "@/views/edu/common/search/Search.vue";
 import Footer from "@/views/edu/common/footer/Footer.vue";
 import { ref,onMounted,watch } from 'vue'
-import {getListApi} from "@/api/edu/list/list";
-import {useRoute} from 'vue-router'
-// 路由参数对象
-const route = useRoute()
+import {course, getListApi} from "@/api/edu/list/list";
 // 类别
-const subjectParentId = ref(0)
-// 二级类别
-const sonSubjectId = ref(0)
-// 难度
-const difficulty = ref('all')
-// 类型
-const courseType = ref('all')
-// 课程排序
-const courseSort = ref('all')
-
-// 方向（一级分类）
-const subject = ref([])
-// 二级分类
-const sonSubject = ref([])
-// 课程列表数据
-const courseList = ref([])
+const courseList = ref<course[]>([])
 // 总共记录
 const total = ref(0)
 // 当前页
@@ -148,57 +48,22 @@ const pageSize = ref(16)
 // 获取列表数据
 const getList = async ()=> {
   const params = {
-    'searchValue':searchValue.value,
-    subjectParentId: subjectParentId.value,
-    subjectId:sonSubjectId.value,
-    difficulty:difficulty.value=='all'?-1:difficulty.value,
-    courseType: courseType.value=='all'?-1:courseType.value,
-    courseSort: courseSort.value,
     pageIndex: pageIndex.value,
     pageSize: pageSize.value
   }
   const { data } = await getListApi(params)
-  subject.value = data.result.eduSubjectList
-  sonSubject.value = data.result.sonSubjectList
-  courseList.value  = data.result.courseList.content
-  total.value = data.result.courseList.totalElements
+  
+  courseList.value  = data.content
+  total.value = data.totalElements
 }
 
-// 按照课程类别获取数据
-const toSubjectList = async (pId:number,subId:number)=> {
-  subjectParentId.value = pId
-  sonSubjectId.value = subId
-  await getList()
-}
 // 切换页码执行事件
 const changePage = (val: number)=> {
   pageIndex.value = val
   getList()
 }
 
-// 按照排序
-const  toSortList =(sort:string)=>{
-  courseSort.value = sort
-  getList()
-}
-// 按照课程难度
-const toDiffList = (val:string)=>{
-  difficulty.value = val
-  getList()
-}
-// 按照课程类型
-const toTypeList = (type:string)=>{
-  courseType.value = type
-  getList()
-}
-// 监听搜索关键字
-const searchValue = ref()
-watch(()=>route.query.keywords,(newSearchValue)=>{
-  searchValue.value = newSearchValue
-  getList()
-})
 onMounted(()=> {
-  searchValue.value = route.query.keywords
   getList()
 })
 </script>
@@ -287,7 +152,6 @@ onMounted(()=> {
 }
 .j-list-box li{
   width: 245px;
-  height: 290px;
   padding: 10px;
   margin-top: 20px;
   box-shadow: 1px 1px 10px rgb(27 39 94 / 40%);

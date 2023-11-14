@@ -1,3 +1,7 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /*
 默认内间距、外间距*/
 *{
@@ -23,4 +27,5 @@ a:hover {
 #nprogress .bar {
   background: #083a6d !important;
 }
+
 

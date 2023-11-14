@@ -1,9 +1,15 @@
-import request from "@/api/request";
+import request, { BR } from "@/api/request";
 
 export function getListApi(params:object) {
-    return request({
-        url: 'edu/front/list/get',
+    return request<any,BR<course>>({
+        url: '/course',
         method: 'get',
         params
     })
+}
+
+
+export interface course{
+    id:number,
+    name:string,    
 }

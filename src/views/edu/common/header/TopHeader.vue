@@ -1,88 +1,80 @@
 <template>
-<div class="edu-header header-store">
-  <div class="edu-container">
-   <router-link class="logo" to="/index">
-     <img src="/edu-logo.svg" alt="蛋黄网在线教育" />
-   </router-link>
+  <div class="edu-header header-store">
+    <div class="edu-container">
+      <div class="edu-component"></div>
 
-    <div class="edu-component"></div>
-
-    <ul class="edu-nav">
-      <li class="edu-nav-item" :class="{'edu-active':eduActive=='/index'}">
-        <router-link to="/index">首页</router-link>
-      </li>
-
-      <li class="edu-nav-item">
-        <router-link to="/edu/vip" target="_blank">VIP会员</router-link>
-      </li>
-
-      <li class="edu-nav-item" :class="{'edu-active':eduActive=='/edu/list'}">
-        <router-link to="/edu/list">全部课程</router-link>
-      </li>
-
-      <!--已登录 start-->
-      <template v-if="studentToken!=''">
-        <li class="edu-nav-item edu-member" :class="{'edu-active':eduActive=='/edu/myInfo'}">
-          <router-link class="edu-nav-avatar edu-case-active" to="/edu/student/myInfo">
-            <img v-if="studentInfo.studentIcon!=null" :src="studentInfo.studentIcon">
-            <img v-else src="@/assets/edu/images/head.jpg">
-            <cite>欢迎您：{{studentInfo.name}}</cite>
-          </router-link>
+      <ul class="edu-nav">
+        <li class="edu-nav-item" :class="{ 'edu-active': eduActive == '/index' }">
+          <router-link to="/edu/index">首页</router-link>
         </li>
-        <li class="edu-nav-item">
-          <a class="edu-case-active" @click="exitSystem" href="JavaScript:void(0);">退出</a>
+
+        <li class="edu-nav-item" :class="{ 'edu-active': eduActive == '/edu/list' }">
+          <router-link to="/edu/list">全部课程</router-link>
         </li>
-      </template>
-      <!--已登录 end-->
 
-      <!--未登录 start-->
-      <template v-else>
-      <li class="edu-nav-item" :class="{'edu-active':eduActive=='/edu/login'}">
-        <router-link to="/edu/login">登录 | 注册</router-link>
-      </li>
-      </template>
-      <!--未登录 end-->
+        <!--已登录 start-->
+        <template v-if="studentToken != ''">
+          <li class="edu-nav-item edu-member" :class="{ 'edu-active': eduActive == '/edu/myInfo' }">
+            <router-link class="edu-nav-avatar edu-case-active" to="/edu/student/myInfo">
+              <img v-if="studentInfo.studentIcon != null" :src="studentInfo.studentIcon">
+              <img v-else src="@/assets/edu/images/head.jpg">
+              <cite>欢迎您：{{ studentInfo.name }}</cite>
+            </router-link>
+          </li>
+          <li class="edu-nav-item">
+            <a class="edu-case-active" @click="exitSystem" href="JavaScript:void(0);">退出</a>
+          </li>
+        </template>
+        <!--已登录 end-->
 
-<!--      <li class="edu-nav-item">
+        <!--未登录 start-->
+        <template v-else>
+          <li class="edu-nav-item" :class="{ 'edu-active': eduActive == '/edu/login' }">
+            <router-link to="/edu/login">登录 | 注册</router-link>
+          </li>
+        </template>
+        <!--未登录 end-->
+
+        <!--      <li class="edu-nav-item">
         <router-link to="/home" target="_blank">我是讲师</router-link>
       </li>-->
 
-    </ul>
+      </ul>
 
+    </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import {useRoute} from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useStudentStore } from "@/store/modules/student"
-import { ElMessage,ElMessageBox } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 // 服务器路径
 const url = import.meta.env.VITE_APP_BASE_API
 // 获取登录会员信息
-const {studentInfo,studentToken} = useStudentStore()
+const { studentInfo, studentToken } = useStudentStore()
 const route = useRoute()
 const eduActive = ref()
 eduActive.value = route.path
 
 // 退出系统
-const exitSystem = async ()=> {
+const exitSystem = async () => {
   ElMessageBox.confirm(
-      '您确定要退出蛋黄网吗？',
-      '温馨提示',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }
-  ).then(()=> {
+    '您确定要退出蛋黄网吗？',
+    '温馨提示',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }
+  ).then(() => {
     ElMessage.success('退出成功')
     // 清除用户登录信息
     window.localStorage.removeItem('studentStore')
     // 返回课程首页
-    window.location.href='/'
-  }).catch(()=> {
+    window.location.href = '/'
+  }).catch(() => {
     ElMessage.error('退出失败')
   })
 }
@@ -128,6 +120,7 @@ const exitSystem = async ()=> {
   border-radius: 2px;
   box-sizing: border-box;
 }
+
 .edu-nav .edu-nav-item {
   position: relative;
   display: inline-block;
@@ -135,6 +128,7 @@ const exitSystem = async ()=> {
   line-height: 60px;
   margin: 0 20px;
 }
+
 .edu-nav * {
   font-size: 14px;
 }
@@ -148,12 +142,14 @@ const exitSystem = async ()=> {
 }
 
 .edu-active {
-  color: #fff!important;
+  color: #fff !important;
 }
 
-.edu-nav .edu-nav-item a:hover,.edu-nav .edu-active a {
+.edu-nav .edu-nav-item a:hover,
+.edu-nav .edu-active a {
   color: #fff;
 }
+
 .edu-nav .edu-active:after {
   top: auto;
   bottom: 0;
@@ -174,6 +170,4 @@ const exitSystem = async ()=> {
   margin-right: 10px;
   border-radius: 100%;
   vertical-align: middle;
-}
-
-</style>
+}</style>

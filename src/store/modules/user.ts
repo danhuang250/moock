@@ -12,7 +12,7 @@ export const useUserStore = defineStore({
                 sex: ''
             },
             // 角色
-            roles: []
+            roles: [] as string[]
         }
     },
     getters: {},
