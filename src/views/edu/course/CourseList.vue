@@ -69,15 +69,6 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="现价-原价" width="100">
-        <template #default="scope">
-          <span><el-tag>{{ Number(scope.row.price) === 0 ? '免费' :
-              '¥' + scope.row.price.toFixed(2) }}</el-tag>
-            <el-tag type="danger">{{ Number(scope.row.originalPrice) === 0 ? '免费' :
-                '¥' + scope.row.originalPrice.toFixed(2) }}</el-tag>
-          </span>
-        </template>
-      </el-table-column>
 
       <el-table-column label="课时">
         <template #default="scope">
@@ -93,19 +84,13 @@
         <template #default="scope">
           <el-tooltip class="item" effect="dark" content="浏览课程的用户" placement="top">
             <a>
-              <el-tag type="success"> {{ scope.row.viewCount }}人</el-tag>
+              <el-tag type="success"> {{ scope.row.viewCount}}人</el-tag>
             </a>
           </el-tooltip>
         </template>
       </el-table-column>
 
-      <el-table-column label="购买次数">
-        <template #default="scope">
-          <el-tooltip class="item" effect="dark" content="购买课程的用户" placement="top">
-            <el-tag  type="warning">{{ scope.row.buyCount }}人</el-tag>
-          </el-tooltip>
-        </template>
-      </el-table-column>
+
 
       <el-table-column label="课程状态">
         <template #default="scope">

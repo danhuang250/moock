@@ -3,7 +3,8 @@ import request, { BRS } from "@/api/request";
 // 登录
 export function loginApi(data: LoginData) {
     return request<any, BRS<null>>({
-        url: '/user/login',
+        // url: '/user/login',
+        url: 'edu/front/login',
         method: 'post',
         data
     })

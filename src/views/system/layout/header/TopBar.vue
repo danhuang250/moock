@@ -5,12 +5,6 @@
     <Hamburger/>
   </div>
   <div class="linkBox" >
-    <!--跳转前台首页 start-->
-    <el-link :underline="false" href="/">
-      <el-icon><HomeFilled /></el-icon>
-      前台首页
-    </el-link>
-    <!--跳转前台首页 end-->
     <!--登录用户信息 start-->
     <el-popover :width="350">
       <!--用户头像 start-->
@@ -107,7 +101,7 @@ const exit = async ()=> {
     // 清除用户登录信息
     window.localStorage.removeItem("userStore")
     // 返回登录页
-    window.location.href="/"
+    window.location.href="/admin/login"
   }
 }
 

@@ -12,14 +12,15 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue'
-import {useRouter} from 'vue-router'
+import {ref, watch} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
 // 定义路由对象
 const router = useRouter()
 // 定义搜索关键字
 const keywords = ref('')
 // 根据关键字搜索
 const searchKeyWord = ()=> {
+  console.log(router)
   // 跳转到列表页
   router.push({
     path: '/edu/list',
@@ -28,6 +29,12 @@ const searchKeyWord = ()=> {
     }
   })
 }
+const route = useRoute()
+
+watch(()=>route.query.keywords,(newSearchValue)=>{
+  keywords.value = newSearchValue
+
+},{immediate:true})
 </script>
 
 <style scoped>

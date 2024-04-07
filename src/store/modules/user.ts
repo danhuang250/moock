@@ -24,6 +24,7 @@ export const useUserStore = defineStore({
         // 设置登录用户的信息
         setUserInfo(userInfo: any){
             this.userInfo = userInfo
+            this.roles = userInfo.roles
         },
         // 更新部分信息
         setUserPartInfo(userInfo:any){

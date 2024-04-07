@@ -1,7 +1,7 @@
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb" mode="out-in">
-      <el-breadcrumb-item :to="{ path: '/home'}" key="home" v-if="matched[0].meta.title!=='首页'">
+      <el-breadcrumb-item :to="{ path: '/admin/index'}" key="home" v-if="matched[0].meta.title!=='首页'">
         <div class="breadcrumb-item">
           <span class="breadcrumb-title">首页</span>
         </div>

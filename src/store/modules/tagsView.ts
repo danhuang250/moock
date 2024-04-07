@@ -4,7 +4,7 @@ export const useTagsViewStore = defineStore({
     id: 'tagsViewState',
     state: ()=> ({
         activeTabsValue: '',
-        visitedViews: [{path: '/home',name: 'home',meta: { title: '首页',affix: true},title: '首页'}]
+        visitedViews: [{path: '/admin/index/home',name: 'AdminHome',meta: { title: '首页',affix: true},title: '首页'}]
     }),
     getters: {},
     actions: {

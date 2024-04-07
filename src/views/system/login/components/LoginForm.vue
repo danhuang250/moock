@@ -66,7 +66,22 @@ const submitForm = (formEl: FormInstance | undefined)=> {
     if(valid){
       loading.value = true
       // 登录
-      const { data } = await loginApi({...ruleForm})
+      // const { data } = await loginApi({...ruleForm})
+      // mock一个data数据
+      const data = {
+        status: 200,
+        message: '登录成功',
+        result: {
+          token: '123456789',
+          username: 'admin',
+          realname: '管理员',
+          sex: '男',
+          createTime: '2021-08-01 12:00:00',
+          role:["ROLE_ADMIN"],
+          email:"email",
+          userIcon:"userIcon"
+        }
+      }
       if(data.status === 200){
         // 设置token
         userStore.setToken(data.result.token)
@@ -78,10 +93,10 @@ const submitForm = (formEl: FormInstance | undefined)=> {
           sex: data.result.sex,
           userIcon: data.result.userIcon,
           createTime: data.result.createTime,
-          role: data.result.role
+          roles: data.result.role
         })
         router.push({
-          path: '/home',
+          path: '/admin/index',
         })
         ElNotification({
           title: '登录成功',

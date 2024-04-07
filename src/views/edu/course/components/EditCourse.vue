@@ -46,54 +46,6 @@
         <el-input v-model="formCourse.shortTitle" placeholder="短标题" />
       </el-form-item>
     </el-col>
-
-    <el-col :span="12">
-      <el-form-item prop="price" label="现价">
-        <el-input-number
-            v-model="formCourse.price"
-            :min="1"
-            :max="1000"
-            style="width: 100%;"
-        />
-      </el-form-item>
-    </el-col>
-
-    <el-col :span="12">
-      <el-form-item prop="originalPrice" label="原价">
-        <el-input-number
-            v-model="formCourse.originalPrice"
-            :min="1"
-            :max="1000"
-            style="width: 100%;"
-        />
-      </el-form-item>
-    </el-col>
-
-    <el-col :span="12">
-      <el-form-item label="选择讲师" prop="teacherId">
-        <el-select v-model="formCourse.teacherId" placeholder="请选择讲师"  style="width: 100%;">
-          <el-option
-              v-for="teacher in teachers"
-              :key="teacher.id"
-              :label="teacher.name"
-              :value="teacher.id"
-
-          ></el-option>
-        </el-select>
-      </el-form-item>
-    </el-col>
-
-    <el-col :span="12">
-      <el-form-item prop="lessonNum" label="课时">
-        <el-input-number
-            v-model="formCourse.lessonNum"
-            :min="1"
-            :max="1000"
-            style="width: 100%;"
-        />
-      </el-form-item>
-    </el-col>
-
       <el-col :span="24">
         <el-form-item prop="courseDesc" label="课程描述">
           <el-input
