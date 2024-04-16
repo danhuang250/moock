@@ -30,6 +30,46 @@ export const asyncRoutes = [
                 },
                 component: () => import('@/views/edu/course/CourseList.vue')
             },
+            {
+                path: 'file',
+                name: 'File',
+                meta: {
+                    title: '文件存储设置',
+                    icon: 'SetUp',
+                    role: ['ROLE_ADMIN']
+                },
+                component: () => import('@/views/edu/file/FileSet.vue')
+            },
+            {
+                path: 'student',
+                name: 'Student',
+                meta: {
+                    title: '学生管理',
+                    icon: 'Avatar',
+                    role: ['ROLE_ADMIN']
+                },
+                component: () => import('@/views/edu/student/StudentList.vue')
+            },
+            {
+                path: 'studentid',
+                name: 'Studentid',
+                meta: {
+                    title: '学号管理',
+                    icon: 'List',
+                    role: ['ROLE_ADMIN']
+                },
+                component: () => import('@/views/edu/student/StudentIdList.vue')
+            },
+            {
+                path: 'teacher',
+                name: 'Teacher',
+                meta: {
+                    title: '讲师管理',
+                    icon: 'Avatar',
+                    role: ['ROLE_ADMIN']
+                },
+                component: () => import('@/views/edu/teacher/TeacherList.vue')
+            }
         ]
     },
     {
@@ -119,7 +159,30 @@ export const staticRoutes = [
             path: 'details/:id',
             name: 'Details',
             component: () => import('@/views/edu/details/Details.vue')
-        }
+        },  
+        {
+            path: 'play',
+            name: 'PlayVideo',
+            component: () => import('@/views/edu/video/PlayVideo.vue')
+        },
+        {
+            path: 'student/myinfo',
+            name: 'MyInfo',
+            meta: { title: '个人信息-蛋黄网' },
+            component: () => import('@/views/edu/student/MyInfo.vue')
+        },
+        {
+            path: 'student/mycourse',
+            name: 'MyCourse',
+            meta: { title: '我的课程-蛋黄网' },
+            component: () => import('@/views/edu/student/MyCourse.vue')
+        },
+        {
+            path: 'student/mydownload',
+            name: 'MyDownload',
+            meta: { title: '下载课程资料记录-蛋黄网' },
+            component: () => import('@/views/edu/student/MyDownload.vue')
+        },
         ]
     },
     {
@@ -167,7 +230,7 @@ const router = createRouter({
 })
 
 // 设置白名单
-const whiteList = ['/edu/details', '/edu/list', '/edu/login', '/admin/login','/edu/index']
+const whiteList = ['/edu/details', '/edu/list', '/edu/login', '/admin/login','/edu/index',"/edu/play"]
 // 路由拦截守卫
 router.beforeEach(async (to, from, next) => {
     // 1.Nprogress 开始

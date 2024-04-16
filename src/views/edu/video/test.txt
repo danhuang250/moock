@@ -1,0 +1,1 @@
+http://127.0.0.1:5173/edu/play?courseId=102&videoId=2504

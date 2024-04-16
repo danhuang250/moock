@@ -13,7 +13,6 @@
       <span>手机号：{{studentInfo.phone==null?'未绑定':studentInfo.phone}}</span>
       | <span>昵称：{{studentInfo.name}}</span>
       | <span>性别：{{studentInfo.sex==0?'保密':studentInfo.sex==2?'男':'女'}}</span>
-      | <span>会员类型：{{studentInfo.vipType==null?'注册会员':'齐天大会员'}}</span>
       | <span>区域：{{studentInfo.province}}-{{studentInfo.city}}</span>
     </div>
   </div>

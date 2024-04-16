@@ -380,6 +380,7 @@ export const staticRouter = [
                 meta: { title: '购买VIP记录-蛋黄网' },
                 component: () => import('@/views/edu/student/MyVip.vue')
             },
+            
             {
                 path: 'student/mydownload',
                 name: 'MyDownload',

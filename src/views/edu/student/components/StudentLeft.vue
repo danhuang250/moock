@@ -6,17 +6,8 @@
     <div :class="['nav-item', {'on' : menuType === 'myCourse'}]">
       <a href="" @click.prevent="toMyCourse()">我的课程</a>
     </div>
-    <div :class="['nav-item', {'on' : menuType === 'myVip'}]">
-      <a href="" @click.prevent="toMyVip()">购买VIP记录</a>
-    </div>
     <div  :class="['nav-item', {'on' : menuType === 'myDownload'}]">
       <a href="" @click.prevent="toMyDownload()">下载资料记录</a>
-    </div>
-    <div :class="['nav-item', {'on' : menuType === 'account'}]">
-      <a href="" @click.prevent="toAccount()">账号绑定</a>
-    </div>
-    <div :class="['nav-item', {'on' : menuType === 'myCoupon'}]">
-      <a href="" @click.prevent="toMyCoupon()">我的优惠券</a>
     </div>
   </div>
 </template>
@@ -47,17 +38,6 @@ const toMyCourse = ()=>{
   })
   window.open(href, '_self')
 }
-
-/**
- *
- * 跳转到我的购买VIP记录
- */
-const toMyVip = ()=>{
-  let { href } =  router.resolve({
-    name: 'MyVip'
-  })
-  window.open(href, '_self')
-}
 /**
  *
  * 跳转到下载课程资料记录
@@ -68,27 +48,7 @@ const toMyDownload = ()=>{
   })
   window.open(href, '_self')
 }
-/**
- *
- * 跳转到账号绑定
- */
-const toAccount = ()=>{
-  let { href } =  router.resolve({
-    name: 'Account'
-  })
-  window.open(href, '_self')
-}
 
-/**
- *
- * 跳转到我的优惠券
- */
-const toMyCoupon = ()=>{
-  let { href } =  router.resolve({
-    name: 'MyCoupon'
-  })
-  window.open(href, '_self')
-}
 
 </script>
 

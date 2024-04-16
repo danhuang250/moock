@@ -82,6 +82,8 @@ import {ref,reactive,onMounted,watch} from 'vue'
 import {getVideoApi, playVideoByVideoSourceIdApi} from "@/api/edu/video/video";
 import {getChapterListByCourseIdApi} from "@/api/edu/detail/detail";
 import router from "@/router";
+import { ElMessage } from 'element-plus'
+
 const route = useRoute()
 console.log("route:",route.query)
 // 视频资源对象
@@ -138,11 +140,8 @@ const getVideo = async (videoId:number)=> {
     document.title = data.result.course.title
     isCollapse.value = data.result.video.chapterId
     await playVideoByVideoSourceId(data.result.video.videoSourceId)
-  }else {
-    // 跳转到课程详情页
-    router.push({
-      path: `/edu/details/${route.query.courseId}`
-    })
+  } else {
+    ElMessage.error('请先登录！');
   }
 
 }

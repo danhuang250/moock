@@ -79,7 +79,6 @@
                       <div class="chapter-bd">
                         <h5 class="name">{{ item.title }}
                           <span class="watch-free" v-if="item.children.length == 0">录制中...</span>
-                          <span class="watch-free" v-else>VIP会员免费观看</span>
                           <span class="chapter-num">时长：{{ chapterDurationTotal(item.children) }} | 共{{
                             item.children.length }}
                             节</span>
@@ -113,10 +112,8 @@
                             <span class="type-text">视频：</span>
                             <span class="title_info js-watchTrigger">{{ video.title }}
                               ({{ formatDate(video.duration * 1000) }})</span>
-                            <span class="watch-free js-watchForFree" v-if="video.isFree == 0 && !(courseInfo.viewVideo)"
-                              data-index="0" @click="videoPreview(video)">试看</span>
                             <span class="watch-free js-watchForFree" style="color: #4522af;"
-                              v-else-if="courseInfo.viewVideo" @click="playVideo(courseInfo.id, video.id)">播放</span>
+                              @click="playVideo(courseInfo.id, video.id)">播放</span>
                           </li>
 
                         </ul>
@@ -367,6 +364,10 @@ const studyCourse = async () => {
 
 // 跳转到视频播放页
 const playVideo = (courseId: number, videoId: number) => {
+  if (!studentToken) {
+    ElMessageBox.alert('请先登录！', '温馨提示')
+    return;
+  } 
   console.log('courseId:', courseId, 'videoId:', videoId)
   router.push({
     path: '/edu/play',
