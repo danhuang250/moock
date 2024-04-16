@@ -1,0 +1,12 @@
+/login post
+logOut 
+course/* 
+subject/getParentEduSubjectTreeNode
+/teacher/all
+aliVod/upload/getUploadPercent/${fileKey}`
+aliVod/upload/check/
+aliVod/upload/chunks
+
+管理端
+F88B1CB700363A47CAC9C028C591465D
+admin

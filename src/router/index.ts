@@ -15,7 +15,7 @@ export const asyncRoutes = [
             icon: 'GoldMedal',
             role: ['ROLE_ADMIN']
         },
-        redirect: '/admin/daily/subject',
+        redirect: '/admin/daily/course',
         component: () => import('@/views/system/layout/Index.vue'),
         isMenu: true,
         funcNode: 2,
@@ -32,6 +32,56 @@ export const asyncRoutes = [
             },
         ]
     },
+    {
+        path:'/admin/user',
+        name:'User',
+        meta:{
+            title:'用户中心',
+            icon:'User',
+            role:['ROLE_ADMIN']
+        },
+        component: () => import('@/views/system/layout/Index.vue'),
+        redirect: '/admin/user/list',
+        isMenu: true,
+        funcNode: 3,
+        children:[
+            {
+                path:'list',
+                name:'UserList',
+                meta:{
+                    title:'用户列表',
+                    icon:'User',
+                    role:['ROLE_ADMIN']
+                },
+                component: () => import('@/views/system/user/UserList.vue')
+            }
+        ]
+    },
+    {
+        path: '/admin/role',
+        name: 'Role',
+        meta: {
+            title: '角色中心',
+            icon: 'User',
+            role: ['ROLE_ADMIN']
+        },
+        component: () => import('@/views/system/layout/Index.vue'),
+        redirect: '/admin/role/list',
+        isMenu: true,
+        funcNode: 4,
+        children: [
+            {
+                path: 'list',
+                name: 'RoleList',
+                meta: {
+                    title: '角色列表',
+                    icon: 'User',
+                    role: ['ROLE_ADMIN']
+                },
+                component: () => import('@/views/system/role/RoleList.vue')
+            }
+        ]
+    }
 ]
 
 // 定义静态路由
