@@ -2,8 +2,7 @@
 import request, { BRS } from "@/api/request";
 // 登录
 export function loginApi(data: LoginData) {
-    return request<any, BRS<null>>({
-        // url: '/user/login',
+    return request({
         url: 'edu/front/login',
         method: 'post',
         data
@@ -11,7 +10,7 @@ export function loginApi(data: LoginData) {
 }
 // 注册
 export function registerApi(data: RegisterData) {
-    return request<any, BRS<null>>({
+    return request({
         url: '/user/register',
         method: 'post',
         data

@@ -20,7 +20,7 @@
 
        <!--分类 start-->
        <div class="list-tab">
-         <div class="tab-left">分类：</div>
+         <div class="tab-left">子方向：</div>
          <dl>
            <dd :class="{on: sonSubjectId==0}"><a href="" @click.prevent="toSubjectList(0,null)">全部</a></dd>
            <dd :class="{ on: item.id== sonSubjectId}" v-for="item in sonSubject"><a href="" @click.prevent="toSubjectList(item.parentId,item.id)">{{ item.name }}</a></dd>
@@ -49,7 +49,7 @@
            <dd :class="{on: courseType==0}"><a href="" @click.prevent="toTypeList(0)">新手入门</a></dd>
            <dd :class="{on: courseType==1}"><a href="" @click.prevent="toTypeList(1)">新上好课</a></dd>
            <dd :class="{on: courseType==2}"><a href="" @click.prevent="toTypeList(2)">技能提高</a></dd>
-           <dd :class="{on: courseType==3}"><a href="" @click.prevent="toTypeList(3)">实战开发</a></dd>
+           <dd :class="{on: courseType==3}"><a href="" @click.prevent="toTypeList(3)">理论知识</a></dd>
          </dl>
        </div>
        <!--类型 end-->
@@ -78,7 +78,7 @@
                <span v-if="item.courseType==0">类型：新手入门</span>
                <span v-else-if="item.courseType==1">类型：新上好课</span>
                <span v-else-if="item.courseType==2">类型：技能提升</span>
-               <span v-else>类型：实战开发</span>
+               <span v-else>类型：理论知识</span>
 
                <span class="down-num" v-if="item.difficulty==0">难度：入门</span>
                <span class="down-num" v-else-if="item.difficulty==1">难度：初级</span>

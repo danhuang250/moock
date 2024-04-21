@@ -9,7 +9,7 @@
         <!-- <a class="ewm_login" @click="wxlogin"><span>扫码登录更便捷</span></a> -->
         <div class="login02">
           <div class="tit">账号{{ registerFlag ? "注册" : "登录"
-          }}
+            }}
           </div>
           <ul class="logn_ul2">
             <div v-if="!registerFlag">
@@ -21,14 +21,6 @@
               </li>
             </div>
             <div v-if="registerFlag">
-              <li>
-                <el-form-item prop="roleId">
-                  <el-select v-model="loginForm.roleId" placeholder="请选择注册类型" class="input1 w-full h-full " size="large">
-                    <el-option label="学生" :value="0"></el-option>
-                    <el-option label="教师" :value="1"></el-option>
-                  </el-select>
-                </el-form-item>
-              </li>
               <li v-for="item in registerItem">
                 <el-form-item :prop="item.model">
                   <el-input :prefix-icon="item.icon" v-model="loginForm[item.model]" class="input1"
@@ -38,12 +30,11 @@
             </div>
             <li style="border:0">
               <el-button class="sub1" :loading="subLoading" @click="login(loginFormRef)">{{ registerFlag ? "注册" : "登录"
-              }}</el-button>
+                }}</el-button>
             </li>
             <li style="border:0">
               <el-button class="sub1" @click="registerFlag = !registerFlag">切换登录|注册</el-button>
             </li>
-            <!-- <h1 style="position:relative">还没有帐号？<a @click="wxlogin">微信扫码即注册</a><span style="position:absolute; right:0">忘记密码？<a @click="passPwdBack">立即找回</a></span></h1> -->
           </ul>
         </div>
       </div>
@@ -66,6 +57,7 @@ import { RegisterData, loginApi, registerApi, } from "@/api/edu/login/login";
 import { useRouter } from 'vue-router'
 import { useStudentStore } from "@/store/modules/student"
 import { loginItem, registerItem } from './formItem'
+import { addStudentApi } from "@/api/edu/student/student";
 
 // 登录或注册标志 0:登录 1:注册
 const registerFlag = ref(false)
@@ -88,12 +80,9 @@ const loginFormRules = reactive<FormRules>({
   schoolName: [{ required: true, message: '请输入学校名称', trigger: 'blur' }],
 })
 // 定义表单数据对象
-const loginForm: RegisterData & { [key: string]: any } = reactive({
+const loginForm = reactive({
   account: 'test',
   password: '123123',
-  name: '',
-  schoolName: '',
-  roleId: 0
 })
 // 点击登录执行函数
 const login = async (formEl: FormInstance | undefined) => {
@@ -103,28 +92,32 @@ const login = async (formEl: FormInstance | undefined) => {
     try {
       if (valid) {
         if (registerFlag.value) {
-          const data = await registerApi(loginForm)
-          // 设置学员token
-          studentStore.setStudentToken(data.data.studentToken)
-          // 设置登录学员信息
-          studentStore.setStudentPartInfo(data.data)
-          // 跳转首页
-          router.push({
-            path: '/index'
-          })
+          const data = (await addStudentApi({
+            loginName: loginForm.account,
+            password: loginForm.password,
+          })).data
+          if(data.status !== 200){
+            ElMessage.error(data.message)
+            return
+          }
         }
-        const data = await loginApi({
+        const data = (await loginApi({
           account: loginForm.account,
           password: loginForm.password
-        })
-        // 设置学员token
-        studentStore.setStudentToken(data.data.studentToken)
-        // 设置登录学员信息
-        studentStore.setStudentPartInfo(data.data)
-        // 跳转首页
-        router.push({
-          path: '/index'
-        })
+        })).data
+        if (data.status === 200) {
+          // 设置学员token
+          studentStore.setStudentToken(data.result.studentToken)
+          // 设置登录学员信息
+          studentStore.setStudentPartInfo(data.result)
+          // 跳转首页
+          router.push({
+            path: '/edu/index'
+          })
+        } else {
+          ElMessage.error(data.message);
+        }
+
       } else {
         ElMessage.error('提交表单失败，你还有未填写的项目')
       }

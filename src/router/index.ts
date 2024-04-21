@@ -31,14 +31,39 @@ export const asyncRoutes = [
                 component: () => import('@/views/edu/course/CourseList.vue')
             },
             {
-                path: 'file',
-                name: 'File',
+                path: 'subject',
+                name: 'Subject',
                 meta: {
-                    title: '文件存储设置',
-                    icon: 'SetUp',
+                    title: '分类管理',
+                    icon: 'Clock',
                     role: ['ROLE_ADMIN']
                 },
-                component: () => import('@/views/edu/file/FileSet.vue')
+                component: () => import('@/views/edu/subject/SubjectList.vue')
+            }
+        ]
+    },
+    {
+        path: '/admin/user',
+        name: 'User',
+        meta: {
+            title: '用户中心',
+            icon: 'User',
+            role: ['ROLE_ADMIN']
+        },
+        component: () => import('@/views/system/layout/Index.vue'),
+        redirect: '/admin/user/list',
+        isMenu: true,
+        funcNode: 3,
+        children: [
+            {
+                path: 'list',
+                name: 'UserList',
+                meta: {
+                    title: '用户列表',
+                    icon: 'User',
+                    role: ['ROLE_ADMIN']
+                },
+                component: () => import('@/views/system/user/UserList.vue')
             },
             {
                 path: 'student',
@@ -73,31 +98,6 @@ export const asyncRoutes = [
         ]
     },
     {
-        path:'/admin/user',
-        name:'User',
-        meta:{
-            title:'用户中心',
-            icon:'User',
-            role:['ROLE_ADMIN']
-        },
-        component: () => import('@/views/system/layout/Index.vue'),
-        redirect: '/admin/user/list',
-        isMenu: true,
-        funcNode: 3,
-        children:[
-            {
-                path:'list',
-                name:'UserList',
-                meta:{
-                    title:'用户列表',
-                    icon:'User',
-                    role:['ROLE_ADMIN']
-                },
-                component: () => import('@/views/system/user/UserList.vue')
-            }
-        ]
-    },
-    {
         path: '/admin/role',
         name: 'Role',
         meta: {
@@ -120,6 +120,31 @@ export const asyncRoutes = [
                 },
                 component: () => import('@/views/system/role/RoleList.vue')
             }
+        ]
+    },
+    {
+        path: '/admin/siteset',
+        name: 'SiteSet',
+        meta: {
+            title: '网站设置',
+            icon: 'Setting',
+            role: ['ROLE_ADMIN']
+        },
+        redirect: '/siteset/pay',
+        component: () => import('@/views/system/layout/Index.vue'),
+        isMenu: true,
+        funcNode: 5,
+        children: [
+            {
+                path: 'file',
+                name: 'File',
+                meta: {
+                    title: '文件存储设置',
+                    icon: 'SetUp',
+                    role: ['ROLE_ADMIN']
+                },
+                component: () => import('@/views/edu/file/FileSet.vue')
+            },
         ]
     }
 ]
@@ -159,7 +184,7 @@ export const staticRoutes = [
             path: 'details/:id',
             name: 'Details',
             component: () => import('@/views/edu/details/Details.vue')
-        },  
+        },
         {
             path: 'play',
             name: 'PlayVideo',
@@ -230,7 +255,7 @@ const router = createRouter({
 })
 
 // 设置白名单
-const whiteList = ['/edu/details', '/edu/list', '/edu/login', '/admin/login','/edu/index',"/edu/play"]
+const whiteList = ['/edu/details', '/edu/list', '/edu/login', '/admin/login', '/edu/index', "/edu/play"]
 // 路由拦截守卫
 router.beforeEach(async (to, from, next) => {
     // 1.Nprogress 开始

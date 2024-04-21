@@ -114,6 +114,7 @@ const editCourse = async () => {
   }
   subLoading.value = false
 }
+
 </script>
 
 <style scoped>

@@ -29,7 +29,7 @@ export default defineConfig({
     proxy:{
       '/api': {
         target: 'http://cms.xueden.cn',
-        // target: 'http://125.216.244.58:8080/',
+        // target: 'http://125.216.244.58:8081/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
     }

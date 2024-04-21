@@ -7,7 +7,7 @@
  :collapse-transition="true">
    <!--logo start-->
     <div class="imgBox hidden-xs-only" v-if="!isCollapse">
-      <img src="../../../../assets/logo01.png">
+      蛋黄在线教学平台管理端
     </div>
    <!--logo end-->
 
@@ -70,6 +70,7 @@ menuData.value=routers
 .imgBox{
   width: 100%;
   height: 70px;
+  line-height: 70px;
 }
 
 .imgBox img {

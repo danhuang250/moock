@@ -19,7 +19,7 @@
           <el-option label="新手入门" :value="0" />
           <el-option label="新上好课" :value="1" />
           <el-option label="技能提高" :value="2" />
-          <el-option label="实战开发" :value="3" />
+          <el-option label="理论知识" :value="3" />
         </el-select>
       </el-form-item>
     </el-col>

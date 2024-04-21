@@ -51,7 +51,7 @@ const rules = reactive({
 })
 // 表单数据
 const ruleForm = reactive({
-  username: 'test02',
+  username: 'admin',
   password: '123456'
 })
 
@@ -65,9 +65,6 @@ const submitForm = (formEl: FormInstance | undefined)=> {
   formEl.validate(async (valid)=> {
     if(valid){
       loading.value = true
-      // 登录
-      // const { data } = await loginApi({...ruleForm})
-      // mock一个data数据
       const data = {
         status: 200,
         message: '登录成功',
@@ -77,11 +74,16 @@ const submitForm = (formEl: FormInstance | undefined)=> {
           realname: '管理员',
           sex: '男',
           createTime: '2021-08-01 12:00:00',
-          role:["ROLE_ADMIN"],
+          role:{
+            code:'ROLE_ADMIN'
+          },
           email:"email",
-          userIcon:"userIcon"
         }
       }
+      // 登录
+      // const { data } = await loginApi({...ruleForm})
+      // // mock一个data数据
+
       if(data.status === 200){
         // 设置token
         userStore.setToken(data.result.token)
@@ -93,7 +95,7 @@ const submitForm = (formEl: FormInstance | undefined)=> {
           sex: data.result.sex,
           userIcon: data.result.userIcon,
           createTime: data.result.createTime,
-          roles: data.result.role
+          roles: [data.result.role.code]
         })
         router.push({
           path: '/admin/index',
