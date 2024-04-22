@@ -55,22 +55,6 @@
         </template>
       </el-table-column>
       <el-table-column
-          label="免费"
-          prop="isFree"
-          width="140"
-      >
-        <template #default="scope">
-          <el-select v-if="scope.row.edit && scope.row.lev!==1" v-model="scope.row.isFree" placeholder="请选择">
-            <el-option label="免费" :value="0" />
-            <el-option label="收费" :value="1" />
-          </el-select>
-          <span v-else>
-            <el-tag v-if="scope.row.isFree===0">免费</el-tag>
-            <el-tag v-else-if="scope.row.isFree===1" type="success">收费</el-tag>
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column
           label="时长"
           prop="type"
           width="100"

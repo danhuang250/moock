@@ -48,28 +48,6 @@
     </el-col>
 
     <el-col :span="12">
-      <el-form-item prop="price" label="现价">
-        <el-input-number
-            v-model="formCourse.price"
-            :min="1"
-            :max="1000"
-            style="width: 100%;"
-        />
-      </el-form-item>
-    </el-col>
-
-    <el-col :span="12">
-      <el-form-item prop="originalPrice" label="原价">
-        <el-input-number
-            v-model="formCourse.originalPrice"
-            :min="1"
-            :max="1000"
-            style="width: 100%;"
-        />
-      </el-form-item>
-    </el-col>
-
-    <el-col :span="12">
       <el-form-item label="选择讲师" prop="teacherId">
         <el-select v-model="formCourse.teacherId" placeholder="请选择讲师"  style="width: 100%;">
           <el-option
@@ -142,7 +120,6 @@ const rules = reactive<FormRules>({
   price: [{ required: true,message: '课程现价不能为空',trigger: 'blur' }],
   courseDesc: [{ required: true,message: '课程描述不能为空',trigger: 'blur' }],
   lessonNum: [{required: true,message: '课时不能为空',trigger: 'blur'}],
-  originalPrice: [{required: true,message: '课程原价不能为空',trigger: 'blur'}]
 })
 // 定义事件
 const emit = defineEmits(['closeAddCourseForm','success'])
@@ -152,11 +129,11 @@ const subLoading = ref(false)
 const formCourse = reactive({
   subjectId: 0,// 所属栏目
   subjectParentId: 0,// 一级栏目
-  teacherId: 0,// 讲师ID
+  teacherId: null,// 讲师ID
   title: '',// 长标题
   shortTitle: '',// 短标题
-  price: 0,// 现价
-  originalPrice: 0,// 原价
+  price: 1,// 现价
+  originalPrice: 20,// 原价
   lessonNum: 0,// 课时
   courseDesc: '',// 课程描述
   courseType: 0,// 课程类型

@@ -65,24 +65,24 @@ const submitForm = (formEl: FormInstance | undefined)=> {
   formEl.validate(async (valid)=> {
     if(valid){
       loading.value = true
-      const data = {
-        status: 200,
-        message: '登录成功',
-        result: {
-          token: '123456789',
-          username: 'admin',
-          realname: '管理员',
-          sex: '男',
-          createTime: '2021-08-01 12:00:00',
-          role:{
-            code:'ROLE_ADMIN'
-          },
-          email:"email",
-        }
-      }
+      // const data = {
+      //   status: 200,
+      //   message: '登录成功',
+      //   result: {
+      //     token: '123456789',
+      //     username: 'admin',
+      //     realname: '管理员',
+      //     sex: '男',
+      //     createTime: '2021-08-01 12:00:00',
+      //     role:{
+      //       code:'ROLE_ADMIN'
+      //     },
+      //     email:"email",
+      //   }
+      // }
       // 登录
-      // const { data } = await loginApi({...ruleForm})
-      // // mock一个data数据
+      const { data } = await loginApi({...ruleForm})
+      // mock一个data数据
 
       if(data.status === 200){
         // 设置token

@@ -134,11 +134,13 @@ const exitSystem = async () => {
 }
 
 .edu-nav .edu-nav-item a {
-  display: block;
+
   padding: 0 20px;
   color: #fff;
   transition: all .3s;
   -webkit-transition: all .3s;
+  display: flex;
+  align-items: center;
 }
 
 .edu-active {
@@ -149,6 +151,7 @@ const exitSystem = async () => {
 .edu-nav .edu-active a {
   color: #fff;
 }
+
 
 .edu-nav .edu-active:after {
   top: auto;
