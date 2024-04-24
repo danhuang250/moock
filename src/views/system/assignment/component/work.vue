@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, defineProps, watch, computed } from 'vue'
-import { chapterAssignmentApi, IHomework, saveHomeworkApi } from '@/api/system/assignment/chapter'
+import { chapterAssignmentApi, IHomework, saveHomeworkApi, submitAssignmentApi } from '@/api/system/assignment/chapter'
 import EditWork from './editWork.vue'
 import { ElMessage } from 'element-plus'
 import { splitter } from '../constant.ts'
+import { useUserStore } from "../../../../store/modules/user"
+const { userInfo } = useUserStore()
 const props = defineProps({
     courseId: Number,
     chapterId: Number,
@@ -52,10 +54,20 @@ const studentAnswer = ref<string[]>([])
 const isFinish = ref(false)
 
 // 提交答案
-const submitAnswer = () => {
-    isFinish.value = true
-    const answer = studentAnswer.value.join(splitter)
+const submitAnswer = async () => {
+    const answer = studentAnswer.value.join('');
+    const data = {
+        answer,
+        courseId: props.courseId,
+        chapterId: props.chapterId,
+        studentName: userInfo.realname
+    }
+    try {
+        await submitAssignmentApi(data)
+        isFinish.value = true
+    } finally {
 
+    }
 }
 //  生成一个空单选题题目对象
 const getIniSignalOptionWork = () => {
@@ -138,7 +150,8 @@ const editHandle = async (work: IHomework) => {
                         <span class="score">单选</span>
                         <span>({{ ques.score }}分) </span>
                         <span>{{ ques.content }}</span>
-                        <el-button v-if="teacherFlag" type="primary" @click="editWork(ques)" class="ml-5">修改题目</el-button>
+                        <el-button v-if="teacherFlag" type="primary" @click="editWork(ques)"
+                            class="ml-5">修改题目</el-button>
                     </div>
                     <!-- 老师答题区域 -->
                     <template v-if="teacherFlag">
@@ -151,9 +164,19 @@ const editHandle = async (work: IHomework) => {
                     <!-- 学生答题区域 -->
                     <template v-else>
                         <div v-for="(item, i) in ques.options" :key="i">
-                            <el-radio v-model="studentAnswer[index]" :label="i + ''">{{ generateCharLabel(i) + '. '
+                            <el-radio v-model="studentAnswer[index]" :label="i + ''" :disabled="isFinish">{{ generateCharLabel(i) + '. '
         + item
                                 }}</el-radio>
+                        </div>
+                        <div :class="{ analysisInfo: true, answrong: studentAnswer[index] !== ques.answer }"
+                            v-if="isFinish">
+                            <div>
+                                <span class="f-f0 t1">正确答案：</span>
+                                <span class="f-f0 t2">{{generateCharLabel(ques.answer)}}</span>
+                                <span class="t3" v-if="!studentAnswer[index]">你没选择任何选项</span>
+                                <span class="t3" v-else-if="studentAnswer[index] !== ques.answer">你错选为{{ generateCharLabel(studentAnswer[index]) }}</span>
+                                <span class="t3" v-else>你选对了</span>
+                            </div>
                         </div>
                     </template>
                 </template>
@@ -208,5 +231,38 @@ const editHandle = async (work: IHomework) => {
 
 .subBtn {
     margin-top: 20px;
+}
+</style>
+
+
+<!-- 学生提交答案后回显的样式 -->
+<style scoped>
+.analysisInfo {
+    border-radius: 8px;
+    background: #F4FCF9;
+    border: 1px solid #96E3C5;
+    padding: 8px 13px;
+    font-size: 12px;
+    margin: 20px 0 12px;
+}
+
+.answrong {
+    background: #fff3f3;
+    border: 1px solid #f6bbbb;
+    word-break: break-word;
+    border-radius: 8px;
+}
+
+.analysisInfo .t1 {
+    font-size: 14px;
+}
+
+.analysisInfo .t2 {
+    font-size: 20px;
+    margin-right: 12px;
+}
+
+.analysisInfo .t3 {
+    font-size: 12px;
 }
 </style>
