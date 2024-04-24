@@ -130,7 +130,7 @@ export const asyncRoutes = [
             icon: 'Setting',
             role: ['ROLE_ADMIN']
         },
-        redirect: '/siteset/pay',
+        redirect: '/admin/siteset/file',
         component: () => import('@/views/system/layout/Index.vue'),
         isMenu: true,
         funcNode: 5,
@@ -144,6 +144,31 @@ export const asyncRoutes = [
                     role: ['ROLE_ADMIN']
                 },
                 component: () => import('@/views/edu/file/FileSet.vue')
+            },
+        ]
+    },
+    {
+        path: '/admin/assignment',
+        name: "Assignment",
+        meta: {
+            title: '作业管理',
+            icon: 'Notebook',
+            role: ['ROLE_ADMIN']
+        },
+        isMenu: true,
+        funcNode: 5,
+        component: () => import('@/views/system/layout/Index.vue'),
+        redirect: '/admin/assignment/chapter',
+        children: [
+            {
+                path: 'chapter',
+                name: 'chapter',
+                meta: {
+                    title: '章节作业',
+                    icon: 'List',
+                    role: ['ROLE_ADMIN']
+                },
+                component: () => import('@/views/system/assignment/index.vue')
             },
         ]
     }
@@ -208,6 +233,12 @@ export const staticRoutes = [
             meta: { title: '下载课程资料记录-蛋黄网' },
             component: () => import('@/views/edu/student/MyDownload.vue')
         },
+        {
+            path: 'homework',
+            name: 'Homework',
+            meta: { title: '作业详情' },
+            componeent: () => import('@/views/edu/assignment/index.vue')
+        }
         ]
     },
     {

@@ -38,31 +38,25 @@ export function getPlayAuthDataApi(vodId:string) {
     })
 }
 
-// 学员购买课程
+// 学员加入课程
 export function studyCourseApi(courseId:number) {
     return request({
         url: `/edu/front/detail/buy/${courseId}`,
         method: 'post'
     })
 }
-// 根据订单编号获取课程订单详情
-export function getCourseOrderInfoApi(orderNo:string) {
-    return request({
-        url: `/edu/front/detail/getCourseOrderInfo/${orderNo}`
-    })
-}
 
-// 购买课程支付
-export function payBuyCourseApi(orderNo:string) {
-    return request({
-        url: `/edu/front/detail/pay/${orderNo}`,
-        method: 'post'
-    })
-}
 
 // 点击下载课程资料
 export function downloadCourseDataApi(courseDataId:number) {
     return request({
         url: `/edu/front/detail/download/${courseDataId}`
+    })
+}
+
+// 获取所有有作业的章节
+export function chapterListWithHomeworkApi(courseId:number) {
+    return request({
+        url: `/course/chapterHomeWork/${courseId}`
     })
 }

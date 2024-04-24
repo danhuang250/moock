@@ -19,6 +19,7 @@
           :http-request="upload"
           :before-upload="beforeUpload"
           :show-file-list="false"
+          multiple
       >
         <el-button type="primary">选择上传文件</el-button>
       </el-upload>

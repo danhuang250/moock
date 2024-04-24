@@ -80,7 +80,7 @@
                         <h5 class="name">{{ item.title }}
                           <span class="watch-free" v-if="item.children.length == 0">录制中...</span>
                           <span class="chapter-num">时长：{{ chapterDurationTotal(item.children) }} | 共{{
-                            item.children.length }}
+      item.children.length }}
                             节</span>
                         </h5>
                         <p class="desc">{{ item.remarks }}</p>
@@ -195,8 +195,19 @@
           <!--下载资料 end-->
 
         </el-tab-pane>
-        <el-tab-pane label="课程作业" name="two">
-          <div> 尚未开发敬请期待</div>
+        <el-tab-pane label="课程作业" name="two"> 
+          <div class="course-attachment">
+            <div class="down" v-for="item in chapterListWithHomework">
+              <div class="source">
+                <span class="downloadCourse"><el-icon size="18">
+                  </el-icon> {{ item.title }}</span>
+                <el-button v-if="studentToken != null && studentToken != ''" color="#e6a23c" style="color: #fff;"
+                  @click="toHomework(courseInfo.id, item.id)">前往测试</el-button>
+                <span v-else><el-tag>请先登录</el-tag></span>
+              </div>
+            </div>
+
+          </div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -232,7 +243,7 @@ import {
   getChapterListByCourseIdApi, getCourseDataByCourseIdApi,
   getCourseDetailApi,
   getParamListByCourseIdApi,
-  getPlayAuthDataApi, studyCourseApi
+  getPlayAuthDataApi, studyCourseApi, chapterListWithHomeworkApi
 } from "@/api/edu/detail/detail";
 import { formatDuration, formatTime } from "@/utils/date";
 // 路由对象
@@ -284,7 +295,7 @@ const chapterDurationTotal = (children: []) => {
   return formatDuration(data, 'hh时mm分ss秒')
 }
 // 选项卡
-const activeName = ref('first')
+const activeName = ref('two')
 // 点击选项卡事件
 const handleClick = (tab: any, event: any) => {
   let tabName = tab.props.name
@@ -294,6 +305,8 @@ const handleClick = (tab: any, event: any) => {
     getChapterListByCourseId()
   } else if (tabName == 'four') {// 获取课程资料
     getCourseDataByCourseId()
+  } else if (tabName == 'two') {// 获取有作业的章节
+    getChapterListWithHomework()
   }
 }
 // 环境参数数据
@@ -307,6 +320,13 @@ const chapterList = ref([])
 const getChapterListByCourseId = async () => {
   const { data } = await getChapterListByCourseIdApi(courseId)
   chapterList.value = data.result
+}
+
+// 获取有作业的章节数据
+const chapterListWithHomework = ref([])
+const getChapterListWithHomework = async () => {
+  const { data } = await chapterListWithHomeworkApi(courseId)
+  chapterListWithHomework.value = data.result
 }
 
 // 获取课程资料
@@ -367,13 +387,24 @@ const playVideo = (courseId: number, videoId: number) => {
   if (!studentToken) {
     ElMessageBox.alert('请先登录！', '温馨提示')
     return;
-  } 
+  }
   console.log('courseId:', courseId, 'videoId:', videoId)
   router.push({
     path: '/edu/play',
     query: {
       courseId: courseId,
       videoId: videoId
+    }
+  })
+}
+
+// 跳转到作业详情界面
+const toHomework = (chapterId: number, chapterId: number) => {
+  router.push({
+    path: '/edu/homework',
+    query: {
+      chapterId,
+      courseId
     }
   })
 }
