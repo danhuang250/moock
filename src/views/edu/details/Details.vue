@@ -8,7 +8,9 @@
   <div class="details-banner">
     <h3>{{ courseInfo.title }}</h3>
     <div class="details-tag">
-      <span>授课老师：{{ courseInfo.eduTeacher != null ? courseInfo.eduTeacher.name : '未知' }}</span>
+      <span
+        >授课老师：{{ courseInfo.eduTeacher != null ? courseInfo.eduTeacher.name : '未知' }}</span
+      >
       <span v-if="courseInfo.difficulty === 0">课程难度：入门</span>
       <span v-if="courseInfo.difficulty === 1">课程难度：初级</span>
       <span v-if="courseInfo.difficulty === 2">课程难度：中级</span>
@@ -18,7 +20,6 @@
       <span v-if="courseInfo.courseType === 1">课程类型：新上好课</span>
       <span v-if="courseInfo.courseType === 2">课程类型：技能提高</span>
       <span v-if="courseInfo.courseType === 3">课程类型：实战课程</span>
-
     </div>
   </div>
   <!--banner end-->
@@ -27,30 +28,42 @@
     <div class="details-one">
       <div class="details-one-left">
         <div class="details-left-tag">
-          <span><img class="inline-block" src="@/static/img/d_ico2.png"> {{ formatDate2(courseInfo.createTime) }}</span>
-          <span><img class="inline-block" src="@/static/img/d_ico3.png"> {{ courseInfo.buyCount }}人</span>
-          <span><img class="inline-block" src="@/static/img/d_ico4.png"> {{ courseInfo.viewCount }}次</span>
+          <span
+            ><img class="inline-block" src="@/static/img/d_ico2.png" />
+            {{ formatDate2(courseInfo.createTime) }}</span
+          >
+          <span
+            ><img class="inline-block" src="@/static/img/d_ico3.png" />
+            {{ courseInfo.buyCount }}人</span
+          >
+          <span
+            ><img class="inline-block" src="@/static/img/d_ico4.png" />
+            {{ courseInfo.viewCount }}次</span
+          >
         </div>
       </div>
       <div class="details-one-right">
-        <button @click="studyCourse" type="button" class="el-button el-button--primary el-button--mini is-round">
+        <button
+          @click="studyCourse"
+          type="button"
+          class="el-button el-button--primary el-button--mini is-round"
+        >
           <span>加入学习</span>
         </button>
       </div>
     </div>
     <!--第一屏 end-->
     <!--第二屏 start-->
-    <div class="details-tab ">
+    <div class="details-tab">
       <el-tabs class="details-tab" v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="课程介绍" name="first">
-
           <!--课程介绍内容 start-->
           <!--课程介绍 start-->
           <div class="details-tab-son">
             <div class="details-two">
               <div class="details-two-left">
                 <div class="details-video">
-                  <img :src="courseInfo.cover">
+                  <img :src="courseInfo.cover" />
                 </div>
               </div>
               <div class="details-two-right">
@@ -60,11 +73,9 @@
                 </div>
               </div>
             </div>
-
           </div>
           <!--课程介绍 end-->
           <!--课程介绍内容 end-->
-
         </el-tab-pane>
         <el-tab-pane label="章节目录" name="second">
           <!--课程大纲 start-->
@@ -77,17 +88,23 @@
                     <!--章节 start-->
                     <li class="chapter" v-for="(item, index) in chapterList">
                       <div class="chapter-bd">
-                        <h5 class="name">{{ item.title }}
+                        <h5 class="name">
+                          {{ item.title }}
                           <span class="watch-free" v-if="item.children.length == 0">录制中...</span>
-                          <span class="chapter-num">时长：{{ chapterDurationTotal(item.children) }} | 共{{
-      item.children.length }}
-                            节</span>
+                          <span class="chapter-num"
+                            >时长：{{ chapterDurationTotal(item.children) }} | 共{{
+                              item.children.length
+                            }}
+                            节</span
+                          >
                         </h5>
                         <p class="desc">{{ item.remarks }}</p>
                         <p class="addbox">
-                          <a class="showbtn js-click-chapter" @click="foldAndUnfold(index, item.id)">
-
-                            <template v-if="videoListStatus === (index + item.id)">
+                          <a
+                            class="showbtn js-click-chapter"
+                            @click="foldAndUnfold(index, item.id)"
+                          >
+                            <template v-if="videoListStatus === index + item.id">
                               展开列表
                               <el-icon>
                                 <ArrowDownBold />
@@ -110,15 +127,18 @@
                               <VideoCamera />
                             </el-icon>
                             <span class="type-text">视频：</span>
-                            <span class="title_info js-watchTrigger">{{ video.title }}
-                              ({{ formatDate(video.duration * 1000) }})</span>
-                            <span class="watch-free js-watchForFree" style="color: #4522af;"
-                              @click="playVideo(courseInfo.id, video.id)">播放</span>
+                            <span class="title_info js-watchTrigger"
+                              >{{ video.title }} ({{ formatDate(video.duration * 1000) }})</span
+                            >
+                            <span
+                              class="watch-free js-watchForFree"
+                              style="color: #4522af"
+                              @click="playVideo(courseInfo.id, video.id)"
+                              >播放</span
+                            >
                           </li>
-
                         </ul>
                         <!--视频列表 end-->
-
                       </div>
                     </li>
 
@@ -137,13 +157,17 @@
                   <div class="tea-inst">
                     <div class="medias">
                       <a href="#">
-                        <img src="@/static/img/teacher.png" class="media">
-                        <span class="name">{{ courseInfo.eduTeacher != null ? courseInfo.eduTeacher.name : '' }}</span>
+                        <img src="@/static/img/teacher.png" class="media" />
+                        <span class="name">{{
+                          courseInfo.eduTeacher != null ? courseInfo.eduTeacher.name : ''
+                        }}</span>
                         <i class="ic sz-imooc"></i>
                       </a>
                       <span class="job"></span>
                     </div>
-                    <p class="desc">{{ courseInfo.eduTeacher != null ? courseInfo.eduTeacher.remarks : '' }}</p>
+                    <p class="desc">
+                      {{ courseInfo.eduTeacher != null ? courseInfo.eduTeacher.remarks : '' }}
+                    </p>
                   </div>
                 </div>
                 <!-- 老师 end -->
@@ -152,14 +176,13 @@
                   <template v-for="item in courseInfo.teacherCourses">
                     <a href="" target="_blank" class="right-teacher-course">
                       <div class="flex-box">
-                        <img class="course-img" :alt="item.title" :src="item.cover">
+                        <img class="course-img" :alt="item.title" :src="item.cover" />
                         <div class="course-info">
                           <div class="name">{{ item.title }}</div>
                           <p>
-
                             <span>{{ item.viewCount }}</span>
                           </p>
-                          <div class="priceDiscount ">
+                          <div class="priceDiscount">
                             <div class="price l">￥{{ item.price }}</div>
                           </div>
                         </div>
@@ -167,46 +190,52 @@
                     </a>
                   </template>
                 </div>
-
-
               </div>
             </div>
             <!--右边老师 end-->
-
           </div>
           <!--课程大纲 end-->
         </el-tab-pane>
         <el-tab-pane label="下载资料" name="four">
-
           <!--下载资料 start-->
           <div class="course-attachment">
             <div class="down" v-for="item in courseDataList">
               <div class="source">
-                <span class="downloadCourse"><el-icon size="18">
+                <span class="downloadCourse"
+                  ><el-icon size="18">
                     <Download />
-                  </el-icon> {{ item.name }}</span>
-                <el-button v-if="studentToken != null && studentToken != ''" color="#e6a23c" style="color: #fff;"
-                  @click="downloadBtn(item.id)" :loading="downLoading == item.id">下载资料</el-button>
+                  </el-icon>
+                  {{ item.name }}</span
+                >
+                <el-button
+                  v-if="studentToken != null && studentToken != ''"
+                  color="#e6a23c"
+                  style="color: #fff"
+                  @click="downloadBtn(item.id)"
+                  :loading="downLoading == item.id"
+                  >下载资料</el-button
+                >
                 <span v-else><el-tag>请先登录</el-tag></span>
               </div>
             </div>
-
           </div>
           <!--下载资料 end-->
-
         </el-tab-pane>
-        <el-tab-pane label="课程作业" name="two"> 
+        <el-tab-pane label="课程作业" name="two">
           <div class="course-attachment">
             <div class="down" v-for="item in chapterListWithHomework">
               <div class="source">
-                <span class="downloadCourse"><el-icon size="18">
-                  </el-icon> {{ item.title }}</span>
-                <el-button v-if="studentToken != null && studentToken != ''" color="#e6a23c" style="color: #fff;"
-                  @click="toHomework(courseInfo.id, item.id)">前往测试</el-button>
+                <span class="downloadCourse"><el-icon size="18"> </el-icon> {{ item.title }}</span>
+                <el-button
+                  v-if="studentToken != null && studentToken != ''"
+                  color="#e6a23c"
+                  style="color: #fff"
+                  @click="toHomework(courseInfo.id, item.id)"
+                  >前往测试</el-button
+                >
                 <span v-else><el-tag>请先登录</el-tag></span>
               </div>
             </div>
-
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -221,7 +250,6 @@
     <template #footer>
       <el-button key="back" type="primary" @click="() => onCancel()">关闭</el-button>
     </template>
-
   </el-dialog>
   <!--预览视频 end-->
   <!--底部组件 start-->
@@ -230,115 +258,126 @@
 </template>
 
 <script setup lang="ts">
-import TopHeader from "@/views/edu/common/header/TopHeader.vue"
-import Search from "@/views/edu/common/search/Search.vue"
-import Footer from "@/views/edu/common/footer/Footer.vue"
-import VideoPreview from "@/views/edu/details/components/VideoPreview.vue"
-import { ref, onMounted, reactive } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { useStudentStore } from "@/store/modules/student"
-import { ElMessageBox } from 'element-plus'
+import TopHeader from '@/views/edu/common/header/TopHeader.vue';
+import Search from '@/views/edu/common/search/Search.vue';
+import Footer from '@/views/edu/common/footer/Footer.vue';
+import VideoPreview from '@/views/edu/details/components/VideoPreview.vue';
+import { ref, onMounted, reactive } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { useStudentStore } from '@/store/modules/student';
+import { ElMessageBox } from 'element-plus';
 import {
   downloadCourseDataApi,
-  getChapterListByCourseIdApi, getCourseDataByCourseIdApi,
+  getChapterListByCourseIdApi,
+  getCourseDataByCourseIdApi,
   getCourseDetailApi,
   getParamListByCourseIdApi,
-  getPlayAuthDataApi, studyCourseApi, chapterListWithHomeworkApi
-} from "@/api/edu/detail/detail";
-import { formatDuration, formatTime } from "@/utils/date";
+  getPlayAuthDataApi,
+  studyCourseApi,
+  chapterListWithHomeworkApi,
+} from '@/api/edu/detail/detail';
+import { formatDuration, formatTime } from '@/utils/date';
 // 路由对象
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 // 登录用户token
-const { studentToken } = useStudentStore()
-console.log('详情页studentToken:', studentToken)
+const { studentToken } = useStudentStore();
+console.log('详情页studentToken:', studentToken);
 // 下载资料按钮状态
-const downLoading = ref()
+const downLoading = ref();
 // 点击下载资料
 const downloadBtn = async (courseDataId: number) => {
-  downLoading.value = courseDataId
-  const { data } = await downloadCourseDataApi(courseDataId)
+  downLoading.value = courseDataId;
+  const { data } = await downloadCourseDataApi(courseDataId);
   if (data.status === 200) {
-    window.location.href = import.meta.env.VITE_APP_BASE_API + "aliVod/upload/downFileFromOss?fileName=" + data.result.downloadAddress + "&studentToken=" + studentToken;
+    window.location.href =
+      import.meta.env.VITE_APP_BASE_API +
+      'aliVod/upload/downFileFromOss?fileName=' +
+      data.result.downloadAddress +
+      '&studentToken=' +
+      studentToken;
   } else {
-    ElMessageBox.alert('温馨提示', data.message)
+    ElMessageBox.alert('温馨提示', data.message);
   }
-}
+};
 // 课程ID
-const courseId: any = route.params.id
+const courseId: any = route.params.id;
 // 课程信息
-const courseInfo = ref('')
+const courseInfo = ref('');
 // 获取课程详情
 const getCourseDetail = async () => {
-  const { data } = await getCourseDetailApi(courseId)
-  courseInfo.value = data.result
-  document.title = courseInfo.value.title
-}
+  const { data } = await getCourseDetailApi(courseId);
+  courseInfo.value = data.result;
+  document.title = courseInfo.value.title;
+};
 onMounted(() => {
-  getCourseDetail()
-})
+  getCourseDetail();
+});
 // 格式化时间
 const formatDate = (time: any) => {
   return formatTime(time, 'mm:ss');
-}
+};
 // 格式化日期
 const formatDate2 = (time: any) => {
-  return formatTime(time, 'yyyy-MM-dd')
-}
+  return formatTime(time, 'yyyy-MM-dd');
+};
 // 统计章节总时长
 const chapterDurationTotal = (children: []) => {
-  let durationTotal = 0
+  let durationTotal = 0;
   children.forEach(function (item) {
-    durationTotal += item.duration
-  })
-  const data = new Date(durationTotal * 1000)
-  return formatDuration(data, 'hh时mm分ss秒')
-}
+    durationTotal += item.duration;
+  });
+  const data = new Date(durationTotal * 1000);
+  return formatDuration(data, 'hh时mm分ss秒');
+};
 // 选项卡
-const activeName = ref('two')
+const activeName = ref('two');
 // 点击选项卡事件
 const handleClick = (tab: any, event: any) => {
-  let tabName = tab.props.name
-  if (tabName == 'third') {// 获取环境参数
-    getParamListByCourseId()
-  } else if (tabName == 'second') { // 获取课程大纲
-    getChapterListByCourseId()
-  } else if (tabName == 'four') {// 获取课程资料
-    getCourseDataByCourseId()
-  } else if (tabName == 'two') {// 获取有作业的章节
-    getChapterListWithHomework()
+  let tabName = tab.props.name;
+  if (tabName == 'third') {
+    // 获取环境参数
+    getParamListByCourseId();
+  } else if (tabName == 'second') {
+    // 获取课程大纲
+    getChapterListByCourseId();
+  } else if (tabName == 'four') {
+    // 获取课程资料
+    getCourseDataByCourseId();
+  } else if (tabName == 'two') {
+    // 获取有作业的章节
+    getChapterListWithHomework();
   }
-}
+};
 // 环境参数数据
-const paramList = ref([])
+const paramList = ref([]);
 const getParamListByCourseId = async () => {
-  const { data } = await getParamListByCourseIdApi(courseId)
-  paramList.value = data.result
-}
+  const { data } = await getParamListByCourseIdApi(courseId);
+  paramList.value = data.result;
+};
 // 课程大纲数据
-const chapterList = ref([])
+const chapterList = ref([]);
 const getChapterListByCourseId = async () => {
-  const { data } = await getChapterListByCourseIdApi(courseId)
-  chapterList.value = data.result
-}
+  const { data } = await getChapterListByCourseIdApi(courseId);
+  chapterList.value = data.result;
+};
 
 // 获取有作业的章节数据
-const chapterListWithHomework = ref([])
+const chapterListWithHomework = ref([]);
 const getChapterListWithHomework = async () => {
-  const { data } = await chapterListWithHomeworkApi(courseId)
-  chapterListWithHomework.value = data.result
-}
+  const { data } = await chapterListWithHomeworkApi(courseId);
+  chapterListWithHomework.value = data.result;
+};
 
 // 获取课程资料
-const courseDataList = ref([])
+const courseDataList = ref([]);
 const getCourseDataByCourseId = async () => {
-  const { data } = await getCourseDataByCourseIdApi(courseId)
-  courseDataList.value = data.result
-}
-
+  const { data } = await getCourseDataByCourseIdApi(courseId);
+  courseDataList.value = data.result;
+};
 
 // 弹出预览视频状态
-const visible = ref(false)
+const visible = ref(false);
 
 // 视频对象
 const videoInfo = reactive({
@@ -347,79 +386,81 @@ const videoInfo = reactive({
   sort: 1,
   fileKey: '',
   titleVideo: '添加课时',
-  playAuth: ''
-})
+  playAuth: '',
+});
 const videoPreview = async (video: object) => {
-  const { data } = await getPlayAuthDataApi(video.videoSourceId)
-  videoInfo.videoSourceId = video.videoSourceId
-  videoInfo.titleVideo = video.title
-  videoInfo.playAuth = data.result.playAuth
-  visible.value = true
-}
+  const { data } = await getPlayAuthDataApi(video.videoSourceId);
+  videoInfo.videoSourceId = video.videoSourceId;
+  videoInfo.titleVideo = video.title;
+  videoInfo.playAuth = data.result.playAuth;
+  visible.value = true;
+};
 // 关闭预览视频窗口
 const onCancel = () => {
-  visible.value = false
-}
+  visible.value = false;
+};
 
 // 跳转到Vip页面
 const addVip = () => {
   window.open('/edu/vip', '_blank');
-}
+};
 
 // 加入学习
 const studyCourse = async () => {
   if (studentToken != null && studentToken != '') {
-    const { data } = await studyCourseApi(courseId)
+    const { data } = await studyCourseApi(courseId);
     if (data.status === 200) {
       router.push({
-        path: `/edu/studyCourse/${data.result.orderNo}`
-      })
+        path: `/edu/studyCourse/${data.result.orderNo}`,
+      });
     } else {
-      ElMessageBox.alert(data.message)
+      ElMessageBox.alert(data.message);
     }
   } else {
-    ElMessageBox.alert('请先登录！', '温馨提示')
+    ElMessageBox.alert('请先登录！', '温馨提示');
   }
-}
+};
 
 // 跳转到视频播放页
 const playVideo = (courseId: number, videoId: number) => {
   if (!studentToken) {
-    ElMessageBox.alert('请先登录！', '温馨提示')
+    ElMessageBox.alert('请先登录！', '温馨提示');
     return;
   }
-  console.log('courseId:', courseId, 'videoId:', videoId)
+  console.log('courseId:', courseId, 'videoId:', videoId);
   router.push({
     path: '/edu/play',
     query: {
       courseId: courseId,
-      videoId: videoId
-    }
-  })
-}
+      videoId: videoId,
+    },
+  });
+};
 
 // 跳转到作业详情界面
-const toHomework = (chapterId: number, chapterId: number) => {
+const toHomework = (courseId: number, chapterId: number) => {
   router.push({
     path: '/edu/homework',
     query: {
       chapterId,
-      courseId
-    }
-  })
-}
+      courseId,
+    },
+  });
+};
 
 // 展开和收缩视频列表
-const videoListStatus = ref() // 默认全部展开
+const videoListStatus = ref(); // 默认全部展开
 const foldAndUnfold = (index: number, id: number) => {
-  if (videoListStatus.value === index + id) {//两次点击的对象相同，打开
-    window.document.getElementById(index + id).style.display = "block";
-    videoListStatus.value = ''
-  } else {//点击的对象不同，先关闭前一对象，再打开当前对象
-    videoListStatus.value = index + id
-    window.document.getElementById(index + id).style.display = "none";
+  if (videoListStatus.value === index + id) {
+    //两次点击的对象相同，打开
+    window.document.getElementById(index + id).style.display = 'block';
+    videoListStatus.value = '';
+  } else {
+    //点击的对象不同，先关闭前一对象，再打开当前对象
+    videoListStatus.value = index + id;
+    window.document.getElementById(index + id).style.display = 'none';
   }
-}
+};
 </script>
 
 <style scoped>
@@ -463,7 +504,8 @@ const foldAndUnfold = (index: number, id: number) => {
   color: #fff;
   font-size: 14px;
   text-align: center;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2NTY5Q0RGMzk5MTMxMUVBODdCNEU3Rjk0NTM2RjZCNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2NTY5Q0RGNDk5MTMxMUVBODdCNEU3Rjk0NTM2RjZCNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjY1NjlDREYxOTkxMzExRUE4N0I0RTdGOTQ1MzZGNkI0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY1NjlDREYyOTkxMzExRUE4N0I0RTdGOTQ1MzZGNkI0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+VcJUXgAAAQlJREFUeNqM0rFLgkEYx3FfwSlEECHhpaE2ndQhcJBybPKPaBF6odnBVVFxiyYJB9dydhAECTcxEbFCwt3hHaQhorfvxR0ccScefOTex/u973vPe04QBCHLeEQCF8Z/RdCgAh8b3JnW2IJinGnz2CHBLhba9QhjhPV1Dj8nvHEVKSQRwyWWcjcunvGNLT7QFEHRnT6GmGJiaVYOWelGPPYLbcteTW7xIybHsgG9A0INuTatClHs8LAnVJMh939XPaz3BFdoqeuwtvk8BiH7EA3MmE7OHEU5L+AF77iStVO8IqK+o7qHjyd5Ps/RwSc8vGGGMuJ/de2JJcxwjyOtLk5MHUtcq/qvAAMAvVG1qNmxtlwAAAAASUVORK5CYII=) no-repeat 18px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2NTY5Q0RGMzk5MTMxMUVBODdCNEU3Rjk0NTM2RjZCNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2NTY5Q0RGNDk5MTMxMUVBODdCNEU3Rjk0NTM2RjZCNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjY1NjlDREYxOTkxMzExRUE4N0I0RTdGOTQ1MzZGNkI0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY1NjlDREYyOTkxMzExRUE4N0I0RTdGOTQ1MzZGNkI0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+VcJUXgAAAQlJREFUeNqM0rFLgkEYx3FfwSlEECHhpaE2ndQhcJBybPKPaBF6odnBVVFxiyYJB9dydhAECTcxEbFCwt3hHaQhorfvxR0ccScefOTex/u973vPe04QBCHLeEQCF8Z/RdCgAh8b3JnW2IJinGnz2CHBLhba9QhjhPV1Dj8nvHEVKSQRwyWWcjcunvGNLT7QFEHRnT6GmGJiaVYOWelGPPYLbcteTW7xIybHsgG9A0INuTatClHs8LAnVJMh939XPaz3BFdoqeuwtvk8BiH7EA3MmE7OHEU5L+AF77iStVO8IqK+o7qHjyd5Ps/RwSc8vGGGMuJ/de2JJcxwjyOtLk5MHUtcq/qvAAMAvVG1qNmxtlwAAAAASUVORK5CYII=)
+    no-repeat 18px;
   background-size: auto;
   border-radius: 20px;
 }
@@ -720,7 +762,7 @@ const foldAndUnfold = (index: number, id: number) => {
   padding: 24px;
   z-index: 2;
   vertical-align: middle;
-  border-bottom: 1px solid rgba(28, 31, 33, .1);
+  border-bottom: 1px solid rgba(28, 31, 33, 0.1);
   background: #fff;
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
@@ -745,7 +787,7 @@ const foldAndUnfold = (index: number, id: number) => {
   margin-left: 20px;
   padding: 4px 12px;
   font-size: 12px;
-  background: rgba(242, 13, 13, .1);
+  background: rgba(242, 13, 13, 0.1);
   border-radius: 12px;
   color: #f20d0d;
   font-weight: 700;
@@ -827,7 +869,7 @@ const foldAndUnfold = (index: number, id: number) => {
   float: right;
   padding: 0 16px;
   font-size: 12px;
-  background: rgba(242, 13, 13, .1);
+  background: rgba(242, 13, 13, 0.1);
   border-radius: 12px;
   color: #f20d0d;
   font-weight: 700;
@@ -867,12 +909,12 @@ const foldAndUnfold = (index: number, id: number) => {
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
-  background-image: url(@/static/img/video_pre.jpg)
+  background-image: url(@/static/img/video_pre.jpg);
 }
 
 .right-video-box .mask {
   background: #000;
-  opacity: .4;
+  opacity: 0.4;
   width: 100%;
   height: 100%;
   float: left;
@@ -1031,7 +1073,6 @@ const foldAndUnfold = (index: number, id: number) => {
 }
 
 /*右边老师详情信息 end*/
-
 
 /*课程大纲样式 end*/
 
