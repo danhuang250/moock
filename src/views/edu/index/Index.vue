@@ -1,299 +1,88 @@
 <template>
   <!--顶部 start-->
-  <TopHeader/>
+  <TopHeader />
   <!--顶部 end-->
   <!--搜索 组件 start-->
-  <Search/>
+  <Search />
   <!--搜索 组件 end-->
 
   <!--中间内容 start-->
 
-
-  <!--新上好课 start-->
-  <div class="bgfff">
-    <div class="edu-container edu-new-good-course">
-    <!--新上好课标题 start-->
-    <div class="edu-course-title">
-      <div class="edu-course-title-left">
-        <div class="hot">
-          <div class="hot-left">HOT</div>
-          <div class="hot-right"></div>
-        </div>
-
-        <div class="text">
-          <div class="text-top">新上好课</div>
-          <div class="text-bottom"></div>
-        </div>
-
-      </div>
-    </div>
-    <!--新上好课标题 end-->
-    <!--新上好课内容 start-->
-    <div class="edu-course-list">
-      <ul class="edu-course-list-item">
-
-        <!--骨架屏 start-->
-        <el-skeleton class="horizontal-skeleton" :loading="courseListLoading" animated :count="4">
-          <template #template>
-            <!--骨架屏预览内容 start-->
-            <div style="display: flex;flex-direction: column;margin-right: 40px;">
-            <el-skeleton-item variant="image" style="width: 275px; height: 165px;" />
-            <div style="padding: 14px">
-              <el-skeleton-item variant="h3" style="width: 50%" />
-              <div style="display: flex;align-items: center;justify-items: space-between;margin-top: 16px;height: 16px;">
-                <el-skeleton-item variant="text" style="margin-right: 16px" />
-                <el-skeleton-item variant="text" style="width: 30%" />
-              </div>
-            </div>
-            </div>
-            <!--骨架屏预览内容 end-->
-
-          </template>
-          <template #default>
-            <!--课程内容 start-->
-            <li v-for="item in newCourses" class="edu-course-list-item-li">
-              <div class="list-img">
-                <router-link :to="'/edu/details/'+item.id" target="_blank">
-                  <img :src="item.cover">
-                </router-link>
-              </div>
-              <div class="list-text"><router-link :to="'/edu/details/'+item.id" target="_blank"> {{item.shortTitle}} </router-link></div>
-              <div class="list-tag">
-                {{item.lessonNum}}课时
-                <span v-if="item.difficulty==0">入门</span>
-                <span v-else-if="item.difficulty==1">初级</span>
-                <span v-else-if="item.difficulty==2">中级</span>
-                <span v-else>高级</span>
-                <i>{{item.viewCount}}人在学</i>
-              </div>
-            </li>
-            <!--课程内容 end-->
-          </template>
-        </el-skeleton>
-        <!--骨架屏 end-->
-
-      </ul>
-    </div>
-    <!--新上好课内容 end-->
-  </div>
-  </div>
-  <!--新上好课 end-->
-
-  <!--实战课程 start-->
-  <div class="bg000">
-     <div class="edu-container edu-new-good-course">
-    <!--实战课程标题 start-->
-    <div class="edu-course-title">
-      <div class="edu-course-title-left">
-        <div class="hot">
-          <div class="good-left">GOOD</div>
-          <div class="good-right"></div>
-        </div>
-
-        <div class="text">
-          <div class="text-top">实战课程</div>
-          <div class="text-bottom"></div>
-        </div>
-
-      </div>
-    </div>
-    <!--实战课程标题 end-->
-    <!--实战课程内容 start-->
-    <div class="edu-course-list">
-      <ul class="edu-course-list-item">
-
-        <!--骨架屏 start-->
-        <el-skeleton class="horizontal-skeleton" :loading="courseListLoading" animated :count="4">
-          <template #template>
-            <!--骨架屏预览内容 start-->
-            <div style="display: flex;flex-direction: column;margin-right: 40px;">
-              <el-skeleton-item variant="image" style="width: 275px; height: 165px;" />
-              <div style="padding: 14px">
-                <el-skeleton-item variant="h3" style="width: 50%" />
-                <div style="display: flex;align-items: center;justify-items: space-between;margin-top: 16px;height: 16px;">
-                  <el-skeleton-item variant="text" style="margin-right: 16px" />
-                  <el-skeleton-item variant="text" style="width: 30%" />
-                </div>
-              </div>
-            </div>
-            <!--骨架屏预览内容 end-->
-
-          </template>
-          <template #default>
-            <!--课程内容 start-->
-            <li class="edu-course-list-item-li" v-for="item in actualCourses">
-              <div class="list-img">
-                <router-link :to="'/edu/details/'+item.id" target="_blank">
-                  <img :src="item.cover">
-                </router-link>
-              </div>
-              <div class="list-vip-img">
-                <img src="@/static/img/vipLogo.png">
-              </div>
-              <div class="list-text"><router-link :to="'/edu/details/'+item.id" target="_blank"> {{item.shortTitle}} </router-link></div>
-              <div class="list-tag">
-                {{ item.lessonNum }}课时
-                <span v-if="item.difficulty==0">入门</span>
-                <span v-else-if="item.difficulty==1">初级</span>
-                <span v-else-if="item.difficulty==2">中级</span>
-                <span v-else>高级</span>
-                <i>{{item.viewCount}}人在学</i>
-              </div>
-            </li>
-            <!--课程内容 end-->
-          </template>
-        </el-skeleton>
-        <!--骨架屏 end-->
-
-
-      </ul>
-    </div>
-    <!--实战课程内容 end-->
-  </div>
-  </div>
-  <!--实战课程 end-->
-
-  <!--新手入门 start-->
-  <div class="bgfff">
-     <div class="edu-container edu-new-good-course">
-    <!--新手入门标题 start-->
-    <div class="edu-course-title">
-      <div class="edu-course-title-left">
-        <div class="hot">
-          <div class="easy-left">EASY</div>
-          <div class="easy-right"></div>
-        </div>
-
-        <div class="text">
-          <div class="text-top">新手入门</div>
-          <div class="text-bottom"></div>
-        </div>
-
-      </div>
-    </div>
-    <!--新手入门标题 end-->
-    <!--新手入门内容 start-->
-    <div class="edu-course-list">
-      <ul class="edu-course-list-item">
-
-        <!--骨架屏 start-->
-        <el-skeleton class="horizontal-skeleton" :loading="courseListLoading" animated :count="4">
-          <template #template>
-            <!--骨架屏预览内容 start-->
-            <div style="display: flex;flex-direction: column;margin-right: 40px;">
-              <el-skeleton-item variant="image" style="width: 275px; height: 165px;" />
-              <div style="padding: 14px">
-                <el-skeleton-item variant="h3" style="width: 50%" />
-                <div style="display: flex;align-items: center;justify-items: space-between;margin-top: 16px;height: 16px;">
-                  <el-skeleton-item variant="text" style="margin-right: 16px" />
-                  <el-skeleton-item variant="text" style="width: 30%" />
-                </div>
-              </div>
-            </div>
-            <!--骨架屏预览内容 end-->
-
-          </template>
-          <template #default>
-            <!--课程内容 start-->
-            <li class="edu-course-list-item-li" v-for="item in startedCourses">
-              <div class="list-img">
-                <router-link :to="'/edu/details/'+item.id" target="_blank">
-                  <img :src="item.cover">
-                </router-link>
-              </div>
-              <div class="list-vip-img">
-                <img src="@/static/img/vipLogo.png">
-              </div>
-              <div class="list-text"><router-link :to="'/edu/details/'+item.id" target="_blank"> {{item.shortTitle}} </router-link></div>
-              <div class="list-tag">
-                {{item.lessonNum}}课时
-                <span v-if="item.difficulty==0">入门</span>
-                <span v-else-if="item.difficulty==1">初级</span>
-                <span v-else-if="item.difficulty==2">中级</span>
-                <span v-else>高级</span>
-                <i>{{item.viewCount}}人在学</i>
-              </div>
-            </li>
-            <!--课程内容 end-->
-          </template>
-        </el-skeleton>
-        <!--骨架屏 end-->
-
-
-      </ul>
-    </div>
-    <!--新手入门内容 end-->
-  </div>
-  </div>
-  <!--新手入门 end-->
-
-  <!--技能提升 start-->
   <div class="bg000">
     <div class="edu-container edu-new-good-course">
       <!--技能提升标题 start-->
       <div class="edu-course-title">
         <div class="edu-course-title-left">
           <div class="hot">
-            <div class="rise-left">RISE</div>
+            <div class="rise-left">recommend</div>
             <div class="rise-right"></div>
           </div>
 
           <div class="text">
-            <div class="text-top">技能提升</div>
+            <div class="text-top">课程推荐</div>
             <div class="text-bottom"></div>
           </div>
-
         </div>
       </div>
       <!--技能提升标题 end-->
       <!--技能提升内容 start-->
       <div class="edu-course-list">
         <ul class="edu-course-list-item">
-
           <!--骨架屏 start-->
           <el-skeleton class="horizontal-skeleton" :loading="courseListLoading" animated :count="4">
             <template #template>
               <!--骨架屏预览内容 start-->
-              <div style="display: flex;flex-direction: column;margin-right: 40px;">
-                <el-skeleton-item variant="image" style="width: 275px; height: 165px;" />
+              <div style="display: flex; flex-direction: column; margin-right: 40px">
+                <el-skeleton-item variant="image" style="width: 275px; height: 165px" />
                 <div style="padding: 14px">
                   <el-skeleton-item variant="h3" style="width: 50%" />
-                  <div style="display: flex;align-items: center;justify-items: space-between;margin-top: 16px;height: 16px;">
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-items: space-between;
+                      margin-top: 16px;
+                      height: 16px;
+                    "
+                  >
                     <el-skeleton-item variant="text" style="margin-right: 16px" />
                     <el-skeleton-item variant="text" style="width: 30%" />
                   </div>
                 </div>
               </div>
               <!--骨架屏预览内容 end-->
-
             </template>
             <template #default>
               <!--课程内容 start-->
-              <li class="edu-course-list-item-li" v-for="item in skillCourses">
+              <li class="edu-course-list-item-li" v-for="item in recommendCourse">
                 <div class="list-img">
-                  <router-link :to="'/edu/details/'+item.id" target="_blank">
-                    <img :src="item.cover">
+                  <router-link :to="'/edu/details/' + item.id" target="_blank">
+                    <img :src="item.cover" />
                   </router-link>
                 </div>
-                <div class="list-vip-img">
-                  <img src="@/static/img/vipLogo.png">
+                <div class="list-text">
+                  <router-link :to="'/edu/details/' + item.id" target="_blank">
+                    {{ item.shortTitle }}
+                  </router-link>
                 </div>
-                <div class="list-text"><router-link :to="'/edu/details/'+item.id" target="_blank"> {{item.shortTitle}} </router-link></div>
                 <div class="list-tag">
-                  {{item.lessonNum}}课时
-                  <span v-if="item.difficulty==0">入门</span>
-                  <span v-else-if="item.difficulty==1">初级</span>
-                  <span v-else-if="item.difficulty==2">中级</span>
+                  {{ item.lessonNum }}课时
+                  <span v-if="item.courseType == 0">类型：新手入门</span>
+                  <span v-else-if="item.courseType == 1">类型：新上好课</span>
+                  <span v-else-if="item.courseType == 2">类型：技能提升</span>
+                  <span v-else>类型：理论知识</span>
+
+                  <span v-if="item.difficulty == 0">入门</span>
+                  <span v-else-if="item.difficulty == 1">初级</span>
+                  <span v-else-if="item.difficulty == 2">中级</span>
                   <span v-else>高级</span>
-                  <i>{{item.viewCount}}人在学</i>
+                  <i>{{ item.viewCount }}人在学</i>
                 </div>
               </li>
               <!--课程内容 end-->
             </template>
           </el-skeleton>
           <!--骨架屏 end-->
-
-
         </ul>
       </div>
       <!--技能提升内容 end-->
@@ -304,193 +93,40 @@
   <!--中间内容 end-->
 
   <!--底部 start-->
-  <Footer/>
+  <Footer />
   <!--底部 end-->
 </template>
 
 <script setup lang="ts">
-import TopHeader from "@/views/edu/common/header/TopHeader.vue"
-import Footer from "@/views/edu/common/footer/Footer.vue"
-import Search from "@/views/edu/common/search/Search.vue"
-import {ref,onMounted} from 'vue'
-import {findIndexCourseListApi, getBannerListApi, getIndexColumnCoursesApi} from "@/api/edu/index";
-// 课程栏目
-const columnCourses = ref([])
-// 获取栏目和课程
-const columnCoursesLoading= ref(true)
-const getIndexColumnCourses = async ()=> {
-  const { data } = await getIndexColumnCoursesApi()
-  columnCourses.value = data.result
-  columnCoursesLoading.value = false
-}
-// 幻灯片
-const banners = ref([])
-// 获取幻灯片
-const getBannerList = async ()=> {
-  const params = {
-    pageIndex: 1,
-    pageSize: 6
-  }
-  const { data } = await getBannerListApi(params)
-  banners.value = data.result
-}
+import TopHeader from '@/views/edu/common/header/TopHeader.vue';
+import Footer from '@/views/edu/common/footer/Footer.vue';
+import Search from '@/views/edu/common/search/Search.vue';
+import { ref, onMounted } from 'vue';
+import { getRecommendCourseListApi } from '@/api/edu/index';
 
 // 获取课程列表
-const courseListLoading = ref(true)
-// 新上好课
-const newCourses = ref([])
-// 实战课程
-const actualCourses = ref([])
-// 新手入门
-const startedCourses = ref([])
-// 技能提升
-const skillCourses = ref([])
-const findIndexCourseList = async ()=> {
-  const params = {
-    pageIndex: 1,
-    pageSize: 8
-  }
-  const { data } = await findIndexCourseListApi(params)
-  newCourses.value = data.result.newCourses
-  actualCourses.value = data.result.actualCourses
-  startedCourses.value = data.result.startedCourses
-  skillCourses.value = data.result.skillCourses
-  courseListLoading.value = false
-}
-/**
- * 跳转到详情页
- */
-const toBanner = (url:string)=>{
-  window.open(url, '_blank')
-}
-onMounted(()=> {
-  getIndexColumnCourses()
-  getBannerList()
-  findIndexCourseList()
-})
+const courseListLoading = ref(true);
+
+const recommendCourse = ref([]);
+const getRecommendList = async () => {
+  const { data } = await getRecommendCourseListApi();
+  recommendCourse.value = data.result;
+  courseListLoading.value = false;
+};
+onMounted(() => {
+  getRecommendList();
+});
 </script>
 
 <style scoped>
-*, :after, :before {
+*,
+:after,
+:before {
   box-sizing: inherit;
 }
 .edu-container {
   width: 1200px;
 }
-/*栏目和走马灯样式 start*/
-.edu-banner {
-  height: 380px;
-  display: flex;
-  justify-content: flex-start;
-  margin: 35px auto;
-  box-shadow: 2px 2px 10px rgb(0 0 0 / 40%);
-  border-radius: 20px 20px 0 0;
-}
-.edu-banner-left {
-  width: 263px;
-  background: #2b333b;
-  height: 100%;
-  border-radius: 20px 0 0 0;
-  position: relative;
-  padding-left: 20px;
-  box-sizing: border-box;
-}
-.edu-banner-item{
-  width: 100%;
-  padding: 10px 10px 10px 0;
-  margin-top: 20px;
-}
-.edu-banner-item span {
-  color: #ede4e4;
-  font-size: 14px;
-  display: block;
-  text-align: left;
-  cursor: pointer;
-}
-.edu-banner-item span img {
-  cursor: pointer;
-  float: right;
-  margin-top: 5px;
-}
-.edu-banner-nav {
-  width: 688px;
-  height: 380px;
-  background: #fff;
-  position: absolute;
-  right: -688px;
-  top: 0;
-  z-index: 9;
-  display: none;
-  padding: 20px 0;
-}
-.edu-banner-nav:after {
-  content: "";
-  width: 5px;
-  height: 20px;
-  background: #083a6d;
-  border-radius: 10px;
-  position: absolute;
-  left: 20px;
-  top: 27px;
-  z-index: 3;
-}
-.edu-banner-nav h3 {
-  color: #343434;
-  font-size: 23px;
-  position: relative;
-  padding-left: 40px;
-  border-bottom: 1px solid #e2e2e2;
-}
-
-.banner-list {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.banner-list-item {
-  display: block;
-  width: 115px;
-  height: 120px;
-  margin: 10px 20px;
-}
-.banner-list-img {
-  width: 115px;
-  height: 72px;
-  border-radius: 6px;
-}
-
-.banner-list-img img {
-  width: 100%;
-  height: 100%;
-  border-radius: 6px;
-}
-
-.banner-list-text{
-  font-size: 12px;
-  color: #545c63;
-  margin-top: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.edu-banner-item:hover{
-  background: #999999;
-  border-radius: 6px 0 0 6px;
-}
-
-.edu-banner-item:hover .edu-banner-nav{
-  display: block;
-}
-
-.edu-banner-right {
-  width: 937px;
-  height: 100%;
-}
-/*栏目和走马灯样式 end*/
-
 /*课程类型样式 start*/
 .row-bottom-type {
   margin: -35px auto 10px auto;
@@ -537,7 +173,7 @@ onMounted(()=> {
 
 /*新上好课 start*/
 .edu-new-good-course {
-  margin: 30px  auto -30px auto;
+  margin: 30px auto -30px auto;
 }
 .edu-course-title {
   display: flex;
@@ -547,7 +183,7 @@ onMounted(()=> {
   display: flex;
 }
 
-.edu-course-title  .hot {
+.edu-course-title .hot {
   display: flex;
   height: 38px;
 }
@@ -626,20 +262,20 @@ onMounted(()=> {
   border-bottom-color: transparent;
 }
 
-.edu-course-title  .text {
+.edu-course-title .text {
   position: relative;
   height: 38px;
   z-index: 50;
 }
 
-.edu-course-title  .text .text-top {
+.edu-course-title .text .text-top {
   font-size: 24px;
   padding: 0 5px;
   color: #333333;
   line-height: 31px;
   font-weight: 700;
 }
-.edu-course-title  .text .text-bottom {
+.edu-course-title .text .text-bottom {
   position: absolute;
   top: 25px;
   left: 0px;
@@ -657,7 +293,7 @@ onMounted(()=> {
   margin-bottom: 30px;
 }
 
-.edu-course-list .edu-course-list-item{
+.edu-course-list .edu-course-list-item {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -665,7 +301,7 @@ onMounted(()=> {
   flex-wrap: wrap;
 }
 
-.edu-course-list .edu-course-list-item .edu-course-list-item-li{
+.edu-course-list .edu-course-list-item .edu-course-list-item-li {
   position: relative;
   width: 270px;
   height: 290px;
@@ -675,7 +311,7 @@ onMounted(()=> {
   -webkit-transition: margin-top 0.2s;
   overflow: hidden;
 }
-.edu-course-list-item-li .list-img{
+.edu-course-list-item-li .list-img {
   width: 100%;
   height: 165px;
   cursor: pointer;
@@ -736,7 +372,7 @@ onMounted(()=> {
   height: 20px;
   color: #fff;
   font-size: 12px;
-  background: linear-gradient(90deg,#d5cb5a,#977e06 99%);
+  background: linear-gradient(90deg, #d5cb5a, #977e06 99%);
   border-radius: 24px 0 24px 0;
 }
 
@@ -759,7 +395,7 @@ onMounted(()=> {
 }
 .bgfff {
   box-shadow: 0 2px 8px 0 rgb(7 17 27 / 6%);
-  background-color: #fff!important;
+  background-color: #fff !important;
 }
 /*新上好课 end*/
 
@@ -771,6 +407,4 @@ onMounted(()=> {
 }
 
 /* 添加一些样式来控制水平排列的 el-skeleton */
-
-
 </style>

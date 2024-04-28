@@ -10,13 +10,13 @@ import {
 import EditWork from './editWork.vue';
 import { ElMessage } from 'element-plus';
 import { splitter } from '../constant.ts';
-import { useUserStore } from '../../../../store/modules/user';
-const { userInfo } = useUserStore();
+import { useStudentStore } from '../../../../store/modules/student';
+const { studentInfo } = useStudentStore();
 const props = defineProps({
   courseId: Number,
   chapterId: Number,
   mod: String,
-  isFinish: Boolean
+  isFinish: Boolean,
 });
 
 const chapterAssignment = ref<IHomework[]>([]);
@@ -47,7 +47,7 @@ watch(
 
 //  根据index生成ABCD
 const generateCharLabel = (index: number) => {
-  return String.fromCharCode(65 + index);
+  return String.fromCharCode(65 + +index);
 };
 
 // 教师模式
@@ -64,13 +64,15 @@ const isFinish = ref(props.isFinish);
 
 // 提交答案
 const submitAnswer = async () => {
-  const answer = studentAnswer.value.join('');
-  const data = {
-    answer,
-    courseId: props.courseId,
-    chapterId: props.chapterId,
-    studentName: userInfo.realname,
-  };
+  const data = studentAnswer.value.map((answer,index) => {
+    return {
+      answer,
+      courseId: props.courseId,
+      chapterId: props.chapterId,
+      studentName: studentInfo.name,
+      homeWorkId:chapterAssignment.value[index].id
+    };
+  });
   try {
     await submitAssignmentApi(data);
     isFinish.value = true;
@@ -136,17 +138,23 @@ const checkFlag = ref(false);
 const studentScoreList = ref([]);
 const checkStudentScore = async () => {
   const { data } = await getStudentScoreApi(props.courseId, props.chapterId);
-  studentScoreList.value = data.result;
+  studentScoreList.value = data.result.studentHomeWorkScore.concat(data.result.absentStudents.map((item)=>{
+    return {
+      studentName:item.studentName,
+      totalScore:0
+    }
+  
+  }));
   checkFlag.value = true;
 };
 </script>
 
 <template>
-  <el-dialog v-model="checkFlag" title="Shipping address" width="500">
-    <el-scrollbar height="500px">
-      <el-table :data="studentScoreList">
-        <el-table-column property="date" label="学生姓名" width="150" />
-        <el-table-column property="name" label="成绩" width="100" />
+  <el-dialog v-model="checkFlag" title="学生答题情况" width="500">
+    <el-scrollbar height="300px">
+      <el-table :data="studentScoreList" key="id">
+        <el-table-column property="studentName" label="学生姓名" width="250" />
+        <el-table-column property="totalScore" label="成绩" width="250" />
       </el-table>
     </el-scrollbar>
   </el-dialog>

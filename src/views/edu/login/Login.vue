@@ -74,15 +74,13 @@ const subLoading = ref(false)
 
 // 定义登录表单规则
 const loginFormRules = reactive<FormRules>({
-  account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+  loginName: [{ required: true, message: '请输入账号', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-  name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-  schoolName: [{ required: true, message: '请输入学校名称', trigger: 'blur' }],
 })
 // 定义表单数据对象
 const loginForm = reactive({
-  account: 'test',
-  password: '123123',
+  loginName : 'U_10384829',
+  password: '123456',
 })
 // 点击登录执行函数
 const login = async (formEl: FormInstance | undefined) => {
@@ -93,7 +91,7 @@ const login = async (formEl: FormInstance | undefined) => {
       if (valid) {
         if (registerFlag.value) {
           const data = (await addStudentApi({
-            loginName: loginForm.account,
+            loginName: loginForm.loginName,
             password: loginForm.password,
           })).data
           if(data.status !== 200){
@@ -102,7 +100,7 @@ const login = async (formEl: FormInstance | undefined) => {
           }
         }
         const data = (await loginApi({
-          account: loginForm.account,
+          loginName: loginForm.loginName,
           password: loginForm.password
         })).data
         if (data.status === 200) {

@@ -237,7 +237,7 @@ export const staticRoutes = [
             path: 'homework',
             name: 'Homework',
             meta: { title: '作业详情' },
-            componeent: () => import('@/views/edu/assignment/index.vue')
+            component: () => import('@/views/edu/assignment/index.vue')
         }
         ]
     },

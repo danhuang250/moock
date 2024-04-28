@@ -182,9 +182,6 @@
                           <p>
                             <span>{{ item.viewCount }}</span>
                           </p>
-                          <div class="priceDiscount">
-                            <div class="price l">￥{{ item.price }}</div>
-                          </div>
                         </div>
                       </div>
                     </a>
@@ -196,7 +193,7 @@
           </div>
           <!--课程大纲 end-->
         </el-tab-pane>
-        <el-tab-pane label="下载资料" name="four">
+        <el-tab-pane label="下载资料" name="third">
           <!--下载资料 start-->
           <div class="course-attachment">
             <div class="down" v-for="item in courseDataList">
@@ -221,7 +218,7 @@
           </div>
           <!--下载资料 end-->
         </el-tab-pane>
-        <el-tab-pane label="课程作业" name="two">
+        <el-tab-pane label="课程作业" name="four">
           <div class="course-attachment">
             <div class="down" v-for="item in chapterListWithHomework">
               <div class="source">
@@ -259,7 +256,6 @@
 
 <script setup lang="ts">
 import TopHeader from '@/views/edu/common/header/TopHeader.vue';
-import Search from '@/views/edu/common/search/Search.vue';
 import Footer from '@/views/edu/common/footer/Footer.vue';
 import VideoPreview from '@/views/edu/details/components/VideoPreview.vue';
 import { ref, onMounted, reactive } from 'vue';
@@ -331,29 +327,20 @@ const chapterDurationTotal = (children: []) => {
   return formatDuration(data, 'hh时mm分ss秒');
 };
 // 选项卡
-const activeName = ref('two');
+const activeName = ref('first');
 // 点击选项卡事件
 const handleClick = (tab: any, event: any) => {
   let tabName = tab.props.name;
-  if (tabName == 'third') {
-    // 获取环境参数
-    getParamListByCourseId();
-  } else if (tabName == 'second') {
+  if (tabName == 'second') {
     // 获取课程大纲
     getChapterListByCourseId();
-  } else if (tabName == 'four') {
+  } else if (tabName == 'third') {
     // 获取课程资料
     getCourseDataByCourseId();
-  } else if (tabName == 'two') {
+  } else if (tabName == 'four') {
     // 获取有作业的章节
     getChapterListWithHomework();
   }
-};
-// 环境参数数据
-const paramList = ref([]);
-const getParamListByCourseId = async () => {
-  const { data } = await getParamListByCourseIdApi(courseId);
-  paramList.value = data.result;
 };
 // 课程大纲数据
 const chapterList = ref([]);

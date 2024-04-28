@@ -18,14 +18,13 @@ export function registerApi(data: RegisterData) {
 }
 
 export interface LoginData {
-    account: string;
+    loginName: string;
     password: string;
 }
 
 export interface RegisterData {
-    account: string;
+    loginName: string;
     password: string;
-    name: string;
     schoolName: string;
     roleId: number;
 }
