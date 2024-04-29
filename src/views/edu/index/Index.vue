@@ -10,6 +10,26 @@
 
   <div class="bg000">
     <div class="edu-container edu-new-good-course">
+      <!--视频播放器 start-->
+      <div class="edu-course-title">
+        <div class="edu-course-title-left">
+          <div class="hot">
+            <div class="rise-left">live</div>
+            <div class="rise-right"></div>
+          </div>
+
+          <div class="text">
+            <div class="text-top">课程直播</div>
+            <div class="text-bottom"></div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="J_prismPlayer"
+        class="prism-player"
+        style="height: 400px; width: 700px; margin: 10px auto"
+      ></div>
+      <!--视频播放器 end-->
       <!--技能提升标题 start-->
       <div class="edu-course-title">
         <div class="edu-course-title-left">
@@ -88,7 +108,6 @@
       <!--技能提升内容 end-->
     </div>
   </div>
-  <!--技能提升 end-->
 
   <!--中间内容 end-->
 
@@ -103,18 +122,70 @@ import Footer from '@/views/edu/common/footer/Footer.vue';
 import Search from '@/views/edu/common/search/Search.vue';
 import { ref, onMounted } from 'vue';
 import { getRecommendCourseListApi } from '@/api/edu/index';
+import { pullStream, pushStream } from '@/api/edu/live/courseLive';
 
 // 获取课程列表
 const courseListLoading = ref(true);
 
 const recommendCourse = ref([]);
+
 const getRecommendList = async () => {
   const { data } = await getRecommendCourseListApi();
   recommendCourse.value = data.result;
   courseListLoading.value = false;
 };
+// 阿里云视频点播播放器
+const player = ref<any>();
+// 创建阿里云视频点播播放器
+const creatAliPlayer = async () => {
+  let push = await pushStream(1);
+  let {data} = await pullStream(1);
+  console.log(push, data.message);
+  if (player.value != null && player.value != '') {
+    player.value.dispose(); //销毁
+  }
+  player.value = new window.Aliplayer(
+    {
+      id: 'J_prismPlayer',
+      width: '100%',
+      height: '100%',
+      source:data.message,
+      isLive: true, // 是否为直播播放。
+      controlBarVisibility: 'click' /* The mode of the status bar, which is set to Click. */,
+      showBarTime: '10000',
+      components: [
+        {
+          name: 'AliplayerDanmuComponent',
+          type: AliPlayerComponent.AliplayerDanmuComponent,
+          args: [
+            [
+              {
+                mode: 1, // mode 表示弹幕的类型，参考 弹幕类型 https://github.com/jabbany/CommentCoreLibrary/blob/master/docs/CommentTypes.md
+                text: '弹幕测试1', // text 表示弹幕的文字内容。注意：在创造弹幕对象后，对 text 的更改将无意义。
+                stime: 1000, // stime 表示弹幕相对于视频位置的开始时间（ms），0即在视频开始立即出现
+                size: 25, // 弹幕的文字大小
+                color: 0xffffff, // 文字颜色,
+              },
+              {
+                mode: 1,
+                text: '弹幕测试2',
+                stime: 2000,
+                size: 25,
+                color: 0xffffff,
+              },
+            ],
+          ],
+        },
+      ],
+    },
+    function (player: any) {
+      console.log('播放器创建好了。');
+    }
+  );
+};
 onMounted(() => {
   getRecommendList();
+  creatAliPlayer();
 });
 </script>
 
