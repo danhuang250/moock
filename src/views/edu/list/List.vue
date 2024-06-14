@@ -92,7 +92,7 @@
     <ul class="j-list-box">
       <li v-for="item in courseList">
         <router-link :to="'/edu/details/' + item.id" target="_blank">
-          <div class="j-list-img"><img :src="item.cover" /></div>
+          <div class="j-list-img"><img :src="item.cover || '/src/assets/goodCourse.jpg'" /></div>
           <div class="j-list-son">
             <div class="j-list-title">
               {{ item.shortTitle }}

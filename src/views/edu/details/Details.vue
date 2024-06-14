@@ -63,7 +63,7 @@
             <div class="details-two">
               <div class="details-two-left">
                 <div class="details-video">
-                  <img :src="courseInfo.cover" />
+                  <img :src="courseInfo.cover || '/src/assets/goodCourse.jpg'" />
                 </div>
               </div>
               <div class="details-two-right">
@@ -387,10 +387,6 @@ const onCancel = () => {
   visible.value = false;
 };
 
-// 跳转到Vip页面
-const addVip = () => {
-  window.open('/edu/vip', '_blank');
-};
 
 // 加入学习
 const studyCourse = async () => {
@@ -426,6 +422,7 @@ const playVideo = (courseId: number, videoId: number) => {
 
 // 跳转到作业详情界面
 const toHomework = (courseId: number, chapterId: number) => {
+  console.log('courseId:', courseId, 'chapterId:', chapterId);
   router.push({
     path: '/edu/homework',
     query: {

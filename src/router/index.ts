@@ -190,7 +190,7 @@ export const staticRoutes = [
         children: [{
             path: 'index',
             name: 'EduIndex',
-            meta: { title: '学灯网-个人开发者创业专用一站式在线教育平台' },
+            meta: { title: '蛋黄网-在线教育平台' },
             isMenu: false,
             component: () => import('@/views/edu/index/Index.vue')
         }, {

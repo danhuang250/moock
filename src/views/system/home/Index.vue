@@ -135,78 +135,7 @@ const editHandle = async (work: IHomework) => {
 </script>
 
 <template>
-  <EditWork
-    :show="dialogFlag"
-    :work="work"
-    @cancel="
-      () => {
-        dialogFlag = false;
-      }
-    "
-    @update="editHandle"
-  />
-
-  <el-container class="container">
-    <!-- 老师特有的编辑情况 -->
-    <el-header v-if="teacherFlag">
-      <div>
-        <el-button type="primary" @click="editWork(undefined)">新增题目</el-button>
-      </div>
-    </el-header>
-    <div v-loading="loading" class="work">
-      <div v-for="(ques, index) in chapterAssignment" class="ti" :key="ques.id">
-        <!-- 单选题类型 -->
-        <template v-if="ques.type === 0">
-          <!-- 题目 -->
-          <div class="tigan">
-            <span class="index">{{ index + 1 }}</span>
-            <span class="score">单选</span>
-            <span>({{ ques.score }}分) </span>
-            <span>{{ ques.content }}</span>
-            <el-button v-if="teacherFlag" type="primary" @click="editWork(ques)" class="ml-5"
-              >修改题目</el-button
-            >
-          </div>
-          <!-- 老师答题区域 -->
-          <template v-if="teacherFlag">
-            <div v-for="(item, i) in ques.options" :key="i">
-              <el-radio disabled v-model="ques.answer" :label="i + ''">{{
-                generateCharLabel(i) + '. ' + item
-              }}</el-radio>
-            </div>
-          </template>
-          <!-- 学生答题区域 -->
-          <template v-else>
-            <div v-for="(item, i) in ques.options" :key="i">
-              <el-radio v-model="studentAnswer[index]" :label="i + ''" :disabled="isFinish">{{
-                generateCharLabel(i) + '. ' + item
-              }}</el-radio>
-            </div>
-            <div
-              :class="{ analysisInfo: true, answrong: studentAnswer[index] !== ques.answer }"
-              v-if="isFinish"
-            >
-              <div>
-                <span class="f-f0 t1">正确答案：</span>
-                <span class="f-f0 t2">{{ generateCharLabel(ques.answer) }}</span>
-                <span class="t3" v-if="!studentAnswer[index]">你没选择任何选项</span>
-                <span class="t3" v-else-if="studentAnswer[index] !== ques.answer"
-                  >你错选为{{ generateCharLabel(studentAnswer[index]) }}</span
-                >
-                <span class="t3" v-else>你选对了</span>
-              </div>
-            </div>
-          </template>
-        </template>
-      </div>
-      <div v-if="chapterAssignment.length === 0">该章节没有作业</div>
-      <template v-if="!teacherFlag && chapterAssignment.length">
-        <el-button class="subBtn" @click="submitAnswer" type="success" size="large"
-          >提交试卷</el-button
-        >
-      </template>
-    </div>
-  </el-container>
+  管理端首页
 </template>
 
 <style scoped>

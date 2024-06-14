@@ -46,12 +46,12 @@
         <template #default="scope">
           <el-popover effect="light" trigger="hover" placement="right">
             <template #default>
-              <img :src="scope.row.cover"
+              <img :src="scope.row.cover ||  '/src/assets/goodCourse.jpg'"
                    style="height: 200px;width: 360px"/>
 
             </template>
             <template #reference>
-              <img :src="scope.row.cover" style="height: 38px;width: 58px;cursor: pointer" @click="uploadCover(scope.row.id,scope.row.title)"/>
+              <img :src="scope.row.cover ||  '/src/assets/goodCourse.jpg'" style="height: 38px;width: 58px;cursor: pointer" @click="uploadCover(scope.row.id,scope.row.title)"/>
             </template>
           </el-popover>
         </template>

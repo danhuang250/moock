@@ -77,7 +77,7 @@
               <li class="edu-course-list-item-li" v-for="item in recommendCourse">
                 <div class="list-img">
                   <router-link :to="'/edu/details/' + item.id" target="_blank">
-                    <img :src="item.cover" />
+                    <img :src="item.cover || '/src/assets/goodCourse.jpg'" />
                   </router-link>
                 </div>
                 <div class="list-text">
@@ -112,7 +112,7 @@
   <!--中间内容 end-->
 
   <!--底部 start-->
-  <Footer />
+  <!-- <Footer /> -->
   <!--底部 end-->
 </template>
 
@@ -138,18 +138,37 @@ const getRecommendList = async () => {
 const player = ref<any>();
 // 创建阿里云视频点播播放器
 const creatAliPlayer = async () => {
-  let push = await pushStream(1);
-  let {data} = await pullStream(1);
-  console.log(push, data.message);
+  // let push = await pushStream(1);
+  // let {data} = await pullStream(1);
+  let data = {
+    message:
+      'http://danhuanglive.lambda1107.icu/danhuang/test.m3u8.m3u8?auth_key=1715185953-0-0-9f213f4c88bb501d38be513106554e0f',
+  };
   if (player.value != null && player.value != '') {
     player.value.dispose(); //销毁
   }
+  const danmu = [
+    {
+      mode: 1, // mode 表示弹幕的类型，参考 弹幕类型 https://github.com/jabbany/CommentCoreLibrary/blob/master/docs/CommentTypes.md
+      text: '666', // text 表示弹幕的文字内容。注意：在创造弹幕对象后，对 text 的更改将无意义。
+      stime: 500, // stime 表示弹幕相对于视频位置的开始时间（ms），0即在视频开始立即出现
+      size: 25, // 弹幕的文字大小
+      color: 0xffffff, // 文字颜色,
+    },
+    {
+      mode: 1,
+      text: '弹幕测试',
+      stime: 2000,
+      size: 25,
+      color: 0xffffff,
+    },
+  ];
   player.value = new window.Aliplayer(
     {
       id: 'J_prismPlayer',
       width: '100%',
       height: '100%',
-      source:data.message,
+      source: data.message,
       isLive: true, // 是否为直播播放。
       controlBarVisibility: 'click' /* The mode of the status bar, which is set to Click. */,
       showBarTime: '10000',
@@ -157,29 +176,28 @@ const creatAliPlayer = async () => {
         {
           name: 'AliplayerDanmuComponent',
           type: AliPlayerComponent.AliplayerDanmuComponent,
-          args: [
-            [
-              {
-                mode: 1, // mode 表示弹幕的类型，参考 弹幕类型 https://github.com/jabbany/CommentCoreLibrary/blob/master/docs/CommentTypes.md
-                text: '弹幕测试1', // text 表示弹幕的文字内容。注意：在创造弹幕对象后，对 text 的更改将无意义。
-                stime: 1000, // stime 表示弹幕相对于视频位置的开始时间（ms），0即在视频开始立即出现
-                size: 25, // 弹幕的文字大小
-                color: 0xffffff, // 文字颜色,
-              },
-              {
-                mode: 1,
-                text: '弹幕测试2',
-                stime: 2000,
-                size: 25,
-                color: 0xffffff,
-              },
-            ],
-          ],
+          args: [danmu],
         },
       ],
     },
     function (player: any) {
-      console.log('播放器创建好了。');
+      const danmuComponent = player.getComponent('AliplayerDanmuComponent');
+      console.log(danmuComponent);
+      const message = ['666', '老师好', '上课了么？'];
+      for (let i = 0; i < 100; i++) {
+       let timer = setTimeout(() => {
+          danmuComponent.send(
+            {
+              mode: Math.floor(Math.random() * 2) + 1,
+              text: message[Math.floor(Math.random() * message.length)],
+              size: 25,
+              color: 0xffffff,
+            },
+            
+          );
+          clearTimeout(timer);
+        },Math.floor(Math.random() * 10000));
+      }
     }
   );
 };

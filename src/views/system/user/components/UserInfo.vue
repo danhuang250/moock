@@ -30,10 +30,6 @@
       <p>管理可对本站数据、成绩、系统等进行管理</p>
       <p>普通用户可对成绩进行管理</p>
       <br>
-      <p>
-        站长邮箱：<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=11184629@qq.com"
-                    target="_blank" data-v-634963c2="">11184629 @qq.com</a>
-      </p>
     </div>
 
     <el-divider />

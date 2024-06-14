@@ -22,10 +22,8 @@ const props = defineProps({
 const chapterAssignment = ref<IHomework[]>([]);
 const loading = ref(false);
 watch(
-  () => [props.chapterId, props.courseId],
+  () => [props.courseId,props.chapterId],
   async ([courseId, chapterId]) => {
-    console.log('course', courseId, chapterId);
-
     if (courseId === 0 || chapterId === 0) return;
     loading.value = true;
     try {
